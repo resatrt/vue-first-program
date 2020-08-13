@@ -1,29 +1,16 @@
 <template>
-    <div class="nav-wrapper">
-        <div class="content">
-            Money.vue
-        </div>
-        <Nav/>
-    </div>
+   <layout>
+       <p>Money.vue</p>
+   </layout>
 </template>
 
 <script lang="ts">
-
     export default {
         name: 'Money',
     };
 </script>
 
 <style lang="scss" scoped>
-    .nav-wrapper {
-        border: 1px solid green;
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-    }
-    .content{
-        flex-grow: 1;
-        border:1px solid red;
-        overflow: auto;//让超过屏幕的内容可滚动，不影响底部导航栏
-    }
+/*scoped的意思是这个组件里写的class可以和别的组件同名，*/
+/*但是不会冲突，Vue会给每个class添加随机数*/
 </style>

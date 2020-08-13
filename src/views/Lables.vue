@@ -1,15 +1,14 @@
 <template>
-    <div>Lables.vue
-        <Nav/>
-    </div>
+    <layout>
+        <p>Lables.vue</p>
+    </layout>
+
 </template>
 
-<script>
-
-
+<script lang="ts">
     export default {
-        name: "Lables",
-    }
+        name: 'Lables',
+    };
 </script>
 
 <style scoped>
