@@ -2,7 +2,7 @@
     <div class="nav-wrapper">
         <div class="content">
             <slot/>
-<!--            slot是把这个位置传进来的东西放到这里显示-->
+            <!--            slot是把这个位置传进来的东西放到这里显示-->
         </div>
         <Nav/>
     </div>
