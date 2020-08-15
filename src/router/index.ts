@@ -11,6 +11,7 @@ const routes: Array<RouteConfig> = [
     {
         path: '/',
         redirect: '/Money'
+        //重定向到money组件
     },
     {
         path: '/money',

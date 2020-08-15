@@ -1,7 +1,7 @@
 <template>
     <div id="app">
-        <router-view/>
-        <hr>
+      <router-view/>
+<!--        /*根据路径显示需要显示的组件，即router里的index.ts文件里的rutes*/-->
     </div>
 </template>
 

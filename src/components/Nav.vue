@@ -1,7 +1,9 @@
 <template>
     <nav>
         <router-link to="/Money" class="item" active-class="selected">
+<!--            router-link 是跳转-->
             <Icons name="money"/>
+<!--      读取文件名为money的svg图片      -->
             记账
         </router-link>
 
