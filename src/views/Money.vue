@@ -1,28 +1,5 @@
 <template>
     <Layout class-prefix="layout">
-        <div class="tags">
-            <ul class="current">
-                <li>衣</li>
-                <li>食</li>
-                <li>住</li>
-                <li>行</li>
-            </ul>
-            <div class="new">
-                <button>新增标签</button>
-            </div>
-        </div>
-        <div>
-            <lable class="notes">
-                <span class="name">备注</span>
-                <input type="text" placeholder="在这里输入备注">
-            </lable>
-        </div>
-        <div>
-            <ul class="types">
-                <li class="selected">支出</li>
-                <li>收入</li>
-            </ul>
-        </div>
         <div class="numberPad">
             <div class="output">100</div>
             <div class="buttons">
@@ -42,6 +19,29 @@
                 <button>.</button>
             </div>
         </div>
+        <div>
+            <ul class="types">
+                <li class="selected">支出</li>
+                <li>收入</li>
+            </ul>
+        </div>
+        <div>
+            <lable class="notes">
+                <span class="name">备注</span>
+                <input type="text" placeholder="在这里输入备注">
+            </lable>
+        </div>
+        <div class="tags">
+            <div class="new">
+                <button>新增标签</button>
+            </div>
+            <ul class="current">
+                <li>衣</li>
+                <li>食</li>
+                <li>住</li>
+                <li>行</li>
+            </ul>
+        </div>
     </Layout>
 </template>
 
@@ -52,11 +52,10 @@
 </script>
 
 <style lang="scss">
-    .layout-content{
-        border: 2px solid blue;
+    .layout-content {
         display: flex;
         flex-direction: column-reverse;
-
+        /*   column-reverse就是从下往上排列 ，想要保持原来的结构就需要将HTML倒过来    */
     }
 
 </style>
@@ -183,10 +182,11 @@
     .tags {
         font-size: 14px;
         padding: 16px;
-
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column-reverse;
         > .current {
             display: flex;
-
             > li {
                 $h: 24px;
                 background: #D9D9D9;
@@ -204,7 +204,7 @@
             button {
                 background: transparent;
                 border: none;
-                border-bottom: 1px solid;
+               border-bottom: 1px solid;
                 color: #999;
                 padding: 0 4px;
             }
