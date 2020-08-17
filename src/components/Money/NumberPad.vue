@@ -74,7 +74,7 @@
             font-family: Consolas, monospace，space; /*monospace是编程字体*/
             padding: 9px 16px;
             text-align: right;
-            height: 72px;
+            /*height: 72px;*/
             @extend %innerBoxshadow;
         }
 
