@@ -1,16 +1,36 @@
 <template>
     <div>
+        {{value}}
         <lable class="notes">
+
             <span class="name">备注</span>
-            <input type="text" placeholder="在这里输入备注">
+            <input type="text"
+                   v-model="value"
+                   placeholder="在这里输入备注">
+            <!--            方法二-->
+            <!--            v-model 当 用这种方式时可以将这两者替换为 -->
+            <!--                 :value="value"-->
+            <!--    @input="value=$event.target.value"  这句的意思是将输入值传给value -->
+
+
         </lable>
     </div>
 </template>
 
 <script lang="ts">
-    export default {
-        name: 'Notes'
-    };
+    import Vue from 'vue';
+    import {Component} from 'vue-property-decorator';
+
+    @Component
+    export default class Notes extends Vue {
+        value = '';
+        // 方法一
+        //  <input> 添加     @input="onInput
+        // onInput(event: KeyboardEvent) {
+        //     const input = event.target as HTMLInputElement;
+        //     this.value = input.value;
+        // }
+    }
 </script>
 
 <style lang="scss" scoped>
