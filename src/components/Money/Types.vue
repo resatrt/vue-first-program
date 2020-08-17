@@ -13,7 +13,7 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import {Component, Prop} from 'vue-property-decorator';
+    import {Component, Prop, Watch} from 'vue-property-decorator';
 
     @Component //这个component是个装饰器,把type：'-'放到data，selectType函数放到methods里
     export default class Types extends Vue {
@@ -30,10 +30,13 @@
             }
             this.type = type;
         }
-
+   @Watch('type')
+   onTypeChanged(value: string){
+          this.$emit('update:value',value)
+   }
         mounted() {
             if (this.xxx === undefined) {
-                console.log('undefined');
+                // console.log('undefined');
             } else {
                 // console.log(this.xxx.toString());
                 // console.log(typeof this.xxx.toString());
