@@ -13,16 +13,31 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import {Component} from 'vue-property-decorator';
+    import {Component, Prop} from 'vue-property-decorator';
 
-    @Component //这个componenet是个装饰器,把type：'-'放到data，selectType函数放到methods里
+    @Component //这个component是个装饰器,把type：'-'放到data，selectType函数放到methods里
     export default class Types extends Vue {
-        type= '-';//'-'表示支出,'+'表示收入
+        @Prop(Number) xxx: number | undefined;
+        //Prop是告诉 Vue xxx不是data是prop
+        //Number是告诉Vue xxx运行时是个Number
+        //xxx 是属性名
+        //number| undefined 是告诉TS xxx的编译时的类型
+        //尽量保证Number和number|undefined的类型一致
+        type = '-';//'-'表示支出,'+'表示收入
         selectType(type: string) {
             if (type !== '-' && type !== '+') {
                 throw new Error('type is unknown');
             }
             this.type = type;
+        }
+
+        mounted() {
+            if (this.xxx === undefined) {
+                console.log('undefined');
+            } else {
+                // console.log(this.xxx.toString());
+                // console.log(typeof this.xxx.toString());
+            }
         }
     }
     // export default {
