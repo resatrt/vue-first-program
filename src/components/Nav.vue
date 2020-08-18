@@ -28,7 +28,7 @@
 <style lang="scss" scoped>
     @import "~@/assets/style/helper.scss";
     nav{
-        @extend %outerBoxshadow;
+        @extend %outerBox-shadow;
         display: flex;
         flex-direction: row;
         font-size: 12px;

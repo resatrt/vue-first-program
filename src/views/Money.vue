@@ -1,8 +1,10 @@
 <template>
   <Layout class-prefix="layout">
     {{record}}}
-    <NumberPad @update:value="onUpdateNumber"/>
-    <Types @update:value="onUpdateType"/>
+    <NumberPad :value.sync="record.amount" />
+<!--    <Types :value="record.type"  @update:value="onUpdateType"/>-->
+<!--    如果出现 ：x='' @update:x='function' 这种，函数（只是）用来更新数据的，可以去掉后面的@update，直接用修饰符.sync-->
+    <Types :value.sync="record.type" />
     <Notes @update:value="onUpdateNotes"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
   </Layout>
@@ -41,13 +43,13 @@ export default class Money extends Vue {
     this.record.notes=value
   }
 
-  onUpdateType(value: string) {
-    this.record.type=value
-  }
+  // onUpdateType(value: string) {
+  //   this.record.type=value
+  // }
 
-  onUpdateNumber(value: string) {
-    this.record.amount=parseFloat(value)
-  }
+  // onUpdateNumber(value: string) {
+  //   this.record.amount=parseFloat(value)
+  // }
 }
 </script>
 

@@ -13,13 +13,13 @@ $color-highlight: #f00;
   }
 }
 
-$color-boxshadow: rgba(0, 0, 0, 0.25);
+$color-box-shadow: rgba(0, 0, 0, 0.25);
 
-%outerBoxshadow {
-  box-shadow: 0 0 3px $color-boxshadow;
+%outerBox-shadow {
+  box-shadow: 0 0 3px $color-box-shadow;
 }
 
-%innerBoxshadow {
-  box-shadow: inset 0 -3px 3px -3px $color-boxshadow,
-  inset 0 -3px 3px -3px $color-boxshadow;
+%innerBox-shadow {
+  box-shadow: inset 0 -3px 3px -3px $color-box-shadow,
+  inset 0 -3px 3px -3px $color-box-shadow;
 }
