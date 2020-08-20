@@ -17,9 +17,13 @@ import Types from '@/components/Money/Types.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component, Watch} from 'vue-property-decorator';
-
-
-
+// import model from '@/model';
+const model = require('@/model.js').model;
+// const {model} = require('@/model.js');
+window.localStorage.setItem('vision', '0.0.1');
+const recordList: Record[] = model.fetch();
+console.log(model);
+//JSON.parse(window.localStorage.getItem('recordList') || '[]');
 type Record = {
   tags: string[];
   notes: string;
@@ -34,8 +38,8 @@ type Record = {
 export default class Money extends Vue {
 
   tags = ['衣', '食', '住', '行'];
-  recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
-  record: Record = {tags: [], notes: '', type: '-', amount: 0,createAt:undefined};
+  recordList: Record[] = recordList;
+  record: Record = {tags: [], notes: '', type: '-', amount: 0, createAt: undefined};
 
   onUpdateTags(value: string[]) {
     this.record.tags = value;
@@ -50,12 +54,12 @@ export default class Money extends Vue {
     //这么做是因为record是个对象，即基本类型和复杂类型的问题
     record2.data = new Date();
     this.recordList.push(record2);
-    console.log(this.recordList);
   }
 
   @Watch('recordList')
   onRecordListChange() {
-    window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
+    model.save('recordList');
+    // window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
   }
 
   // onUpdateType(value: string) {
