@@ -17,20 +17,11 @@ import Types from '@/components/Money/Types.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component, Watch} from 'vue-property-decorator';
-// import model from '@/model';
-const model = require('@/model.js').model;
-// const {model} = require('@/model.js');
-window.localStorage.setItem('vision', '0.0.1');
-const recordList: Record[] = model.fetch();
-console.log(model);
-//JSON.parse(window.localStorage.getItem('recordList') || '[]');
-type Record = {
-  tags: string[];
-  notes: string;
-  type: string;
-  amount: number;   //数据类型
-  createAt: Date | undefined;   //类（构造函数）
-}
+import model from '@/model';
+
+
+const recordList = model.fetch();
+// JSON.parse(window.localStorage.getItem('recordList') || '[]');
 
 @Component({
   components: {Tags, Notes, Types, NumberPad},
@@ -38,8 +29,8 @@ type Record = {
 export default class Money extends Vue {
 
   tags = ['衣', '食', '住', '行'];
-  recordList: Record[] = recordList;
-  record: Record = {tags: [], notes: '', type: '-', amount: 0, createAt: undefined};
+  recordList = recordList;
+  record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
 
   onUpdateTags(value: string[]) {
     this.record.tags = value;
@@ -50,15 +41,19 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    const record2 = JSON.parse(JSON.stringify(this.record));//深拷贝record
+    const record2: RecordItem = model.clone(this.record);
     //这么做是因为record是个对象，即基本类型和复杂类型的问题
-    record2.data = new Date();
+    record2.createAt = new Date();
+    console.log('record2');
+    console.log(record2);
+    console.log('recordList');
+    console.log(recordList);
     this.recordList.push(record2);
   }
 
   @Watch('recordList')
   onRecordListChange() {
-    model.save('recordList');
+    model.save(this.recordList);
     // window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
   }
 
