@@ -44,10 +44,6 @@ export default class Money extends Vue {
     const record2: RecordItem = model.clone(this.record);
     //这么做是因为record是个对象，即基本类型和复杂类型的问题
     record2.createAt = new Date();
-    console.log('record2');
-    console.log(record2);
-    console.log('recordList');
-    console.log(recordList);
     this.recordList.push(record2);
   }
 
