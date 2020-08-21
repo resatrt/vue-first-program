@@ -17,18 +17,21 @@ import Types from '@/components/Money/Types.vue';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component, Watch} from 'vue-property-decorator';
-import model from '@/model';
+import recordListModel from '@/models/recordListModel';
+import tagListModel from "@/models/tagListModel";
 
 
-const recordList = model.fetch();
+const recordList = recordListModel.fetch();
 // JSON.parse(window.localStorage.getItem('recordList') || '[]');
+
+const tagList = tagListModel.fetch()
 
 @Component({
   components: {Tags, Notes, Types, NumberPad},
 })
 export default class Money extends Vue {
 
-  tags = ['衣', '食', '住', '行'];
+  tags = tagList; //不写死，从model里读取
   recordList = recordList;
   record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
 
@@ -41,7 +44,7 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    const record2: RecordItem = model.clone(this.record);
+    const record2: RecordItem = recordListModel.clone(this.record);
     //这么做是因为record是个对象，即基本类型和复杂类型的问题
     record2.createAt = new Date();
     this.recordList.push(record2);
@@ -49,7 +52,7 @@ export default class Money extends Vue {
 
   @Watch('recordList')
   onRecordListChange() {
-    model.save(this.recordList);
+    recordListModel.save(this.recordList);
     // window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
   }
 

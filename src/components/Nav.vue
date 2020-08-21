@@ -7,8 +7,8 @@
             记账
         </router-link>
 
-        <router-link to="/Lables" class="item" active-class="selected">
-            <Icons name="lable"/>
+        <router-link to="/Labels" class="item" active-class="selected">
+            <Icons name="label"/>
             标签
         </router-link>
 
