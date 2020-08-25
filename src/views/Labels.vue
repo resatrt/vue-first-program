@@ -1,11 +1,12 @@
 <template>
   <layout>
-    <ol class="tags">
-      <Li v-for="tag in tags" :key="tag.id">
+    <div class="tags">
+      <router-link class="tag"  v-for="tag in tags" :key="tag.id"
+                   :to="`/labels/edit/${tag.id}`">
         <span>{{ tag.name}}</span>
         <Icons name="right"/>
-      </Li>
-    </ol>
+      </router-link>
+    </div>
     <div class="createTag-wrapper">
       <button class="createTag" @click="createTag">新建标签</button>
     </div>
@@ -46,7 +47,7 @@ export default class Labels extends Vue {
   font-size: 16px;
   padding-left: 15px;
 
-  > li {
+  >.tag {
     height: 44px;
     display: flex;
     align-items: center;
