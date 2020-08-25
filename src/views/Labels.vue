@@ -1,8 +1,8 @@
 <template>
   <layout>
     <ol class="tags">
-      <Li v-for="tag in tags" :key="tag">
-        <span>{{ tag }}</span>
+      <Li v-for="tag in tags" :key="tag.id">
+        <span>{{ tag.name}}</span>
         <Icons name="right"/>
       </Li>
     </ol>
@@ -19,6 +19,7 @@ import {Component} from "vue-property-decorator";
 import tagListModel from "@/models/tagListModel";
 
 tagListModel.fetch()
+
 @Component
 export default class Labels extends Vue {
   tags = tagListModel.data  //我只读取数据
@@ -26,13 +27,14 @@ export default class Labels extends Vue {
   createTag() {
     const name = window.prompt('请输入标签名')
     if (name) {
-      const smessage = tagListModel.create(name)
-      if(smessage==='duplicated'){
+      const message = tagListModel.create(name)
+      if(message==='duplicated'){
         window.alert('标签名重复')
       }
 
     }
   }
+
 }
 
 </script>

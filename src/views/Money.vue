@@ -1,6 +1,6 @@
 <template>
   <Layout class-prefix="layout">
-    {{ recordList }}
+<!--    {{ recordList }}-->
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <!--    <Types :value="record.type"  @update:value="onUpdateType"/>-->
     <!--    如果出现 ：x='' @update:x='function' 这种，函数（只是）用来更新数据的，可以去掉后面的@update，直接用修饰符.sync-->
@@ -46,7 +46,7 @@ export default class Money extends Vue {
   saveRecord() {
     const record2: RecordItem = recordListModel.clone(this.record);
     //这么做是因为record是个对象，即基本类型和复杂类型的问题
-    record2.createAt = new Date();
+    record2.createAt = new Date();//添加一个时间
     this.recordList.push(record2);
   }
 

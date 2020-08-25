@@ -34,7 +34,7 @@ export default class NumberPad extends Vue {
     const button = (event.target as HTMLButtonElement);
     //as HTMLButtonElement是强制指定类型
     const input = button.textContent!;//感叹号相当于as string
-    if (this.output.length === 15) {
+    if (this.output.length === 16) {
       alert('醒醒吧，你哪有这么多钱，该去搬砖了');
       this.clear();
       return;
@@ -81,7 +81,7 @@ export default class NumberPad extends Vue {
 .numberPad {
   .output {
     font-size: 36px;
-    font-family: Consolas, monospace，space; /*monospace是编程字体*/
+    font-family: Consolas, monospace，space,serif; /*monospace是编程字体*/
     padding: 9px 16px;
     text-align: right;
     /*height: 72px;*/
