@@ -1,6 +1,6 @@
 <template>
   <Layout class-prefix="layout">
-    <!--    {{ recordList }}-->
+        {{ record }}
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <!--    <Types :value="record.type"  @update:value="onUpdateType"/>-->
     <!--    如果出现 ：x='' @update:x='function' 这种，函数（只是）用来更新数据的，可以去掉后面的@update，直接用修饰符.sync-->

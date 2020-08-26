@@ -5,7 +5,8 @@
 
       <span class="name">{{ this.fieldName }}</span>
       <input type="text"
-             v-model="value"
+             :value="value"
+             @input="onValueChanged($event.target.value)"
              :placeholder="this.placeholder">
       <!--            方法二-->
       <!--            v-model 当 用这种方式时可以将这两者替换为 -->
@@ -23,7 +24,7 @@ import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class FormItem extends Vue {
-  value = '';
+  @Prop({default:''})readonly value!: string ;
   @Prop({required: true}) fieldName!: string;
   @Prop() placeholder!: string;
   // 方法一
