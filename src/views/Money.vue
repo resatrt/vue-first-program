@@ -1,11 +1,12 @@
 <template>
   <Layout class-prefix="layout">
-<!--    {{ recordList }}-->
+    <!--    {{ recordList }}-->
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <!--    <Types :value="record.type"  @update:value="onUpdateType"/>-->
     <!--    如果出现 ：x='' @update:x='function' 这种，函数（只是）用来更新数据的，可以去掉后面的@update，直接用修饰符.sync-->
     <Types :value.sync="record.type"/>
-    <Notes @update:value="onUpdateNotes"/>
+    <Notes field-name="备注" @update:value="onUpdateNotes"
+           placeholder="请在这里输入备注"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
   </Layout>
 </template>
@@ -18,13 +19,13 @@ import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component, Watch} from 'vue-property-decorator';
 import recordListModel from '@/models/recordListModel';
-import tagListModel from "@/models/tagListModel";
+import tagListModel from '@/models/tagListModel';
 
 
 const recordList = recordListModel.fetch();
 // JSON.parse(window.localStorage.getItem('recordList') || '[]');
 
-const tagList = tagListModel.fetch()
+const tagList = tagListModel.fetch();
 
 @Component({
   components: {Tags, Notes, Types, NumberPad},
