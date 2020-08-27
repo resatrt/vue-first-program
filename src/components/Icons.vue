@@ -1,5 +1,5 @@
 <template>
-    <svg class="icon">
+    <svg class="icon"  @click="$emit('click',$event)">
         <use v-bind:xlink:href="'#'+name"/>
 <!--   要传入数据所以要绑定     <use xlink:href="#money"/>-->
     </svg>

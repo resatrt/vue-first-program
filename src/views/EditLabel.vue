@@ -1,15 +1,18 @@
 <template>
   <Layout>
     <div class="navBar">
-      <Icons class="leftIcon" name="left"/>
+      <Icons class="leftIcon" name="left" @click="goBack"/>
+                       <!-- @click="goBack"也可以用@click.native='goBack'， Icons.vue里就不需要透传了     -->
       <span class="title"> 编辑标签</span>
       <span class="rightIcon"></span>
     </div>
     <div class="form-wrapper">
-      <FormItem :value="tag.name" field-name="标签名" placeholder="请输入标签名"/>
+      <FormItem :value="tag.name"
+                @update:value="update"
+                field-name="标签名" placeholder="请输入标签名"/>
     </div>
     <div class="button-wrapper">
-      <Button>删除标签</Button>
+      <Button @click="remove">删除标签</Button>
     </div>
   </Layout>
 </template>
@@ -37,6 +40,24 @@ export default class EditLabel extends Vue {
     } else {
       this.$router.replace('/404');//用replace是为了防止不能回退，push()是回退后又重定向到404
     }
+  }
+
+  update(name: string) {
+    if (this.tag) {
+      tagListModel.update(this.tag.id, name);
+
+    }
+  }
+
+  remove() {
+    if (this.tag) {
+      tagListModel.remove(this.tag.id);
+    }
+    this.goBack();
+  }
+
+  goBack() {
+    this.$router.back();
   }
 }
 </script>
