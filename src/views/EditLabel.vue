@@ -63,7 +63,6 @@ export default class EditLabel extends Vue {
 </script>
 
 <style lang='scss' scoped>
-
 .navBar {
   text-align: center;
   padding: 12px 16px;

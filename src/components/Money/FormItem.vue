@@ -6,9 +6,9 @@
       <input type="text"
              :value="value"
              @input="onValueChanged($event.target.value)"
-             :placeholder="this.placeholder">
-<!--  :value="value"
-             @input="onValueChanged($event.target.value)"  的意思是我只是帮助这个值中转  -->
+             :placeholder="placeholder">
+      <!--  :value="value"
+                   @input="onValueChanged($event.target.value)"  的意思是我只是帮助这个值中转  -->
 
       <!--            方法二-->
       <!--            v-model 当 用这种方式时可以将这两者替换为 -->
@@ -26,7 +26,7 @@ import {Component, Prop,} from 'vue-property-decorator';
 
 @Component
 export default class FormItem extends Vue {
-  @Prop({default:''})readonly value!: string ;
+  @Prop({default: ''}) readonly value!: string;
   @Prop({required: true}) fieldName!: string;
   @Prop() placeholder!: string;
   // 方法一

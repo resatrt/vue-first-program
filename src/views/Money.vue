@@ -1,7 +1,7 @@
 <template>
   <Layout class-prefix="layout">
         {{ record }}
-    <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
+    <NumberPad :value.sync="record.amount" @submit="save"/>
     <!--    <Types :value="record.type"  @update:value="onUpdateType"/>-->
     <!--    如果出现 ：x='' @update:x='function' 这种，函数（只是）用来更新数据的，可以去掉后面的@update，直接用修饰符.sync-->
     <Types :value.sync="record.type"/>
@@ -46,7 +46,7 @@ export default class Money extends Vue {
     this.record.notes = value;
   }
 
-  saveRecord() {
+  save() {
     const record2: RecordItem = recordListModel.clone(this.record);
     //这么做是因为record是个对象，即基本类型和复杂类型的问题
     record2.createAt = new Date();//添加一个时间
