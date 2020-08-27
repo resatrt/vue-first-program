@@ -47,15 +47,12 @@ export default class Money extends Vue {
   }
 
   save() {
-    const record2: RecordItem = recordListModel.clone(this.record);
-    //这么做是因为record是个对象，即基本类型和复杂类型的问题
-    record2.createAt = new Date();//添加一个时间
-    this.recordList.push(record2);
+    recordListModel.create(this.record)
   }
 
   @Watch('recordList')
   onRecordListChange() {
-    recordListModel.save(this.recordList);
+    recordListModel.save();
     // window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
   }
 
