@@ -57,7 +57,7 @@ export default class EditLabel extends Vue {
   }
 
   goBack() {
-    this.$router.back();
+    this.$router.back();//这个有bug，稍后解决
   }
 }
 </script>
@@ -67,7 +67,7 @@ export default class EditLabel extends Vue {
 .navBar {
   text-align: center;
   padding: 12px 16px;
-  background: #ffffff;
+  background: white;
   font-size: 16px;
   display: flex;
   align-items: center;

@@ -58,6 +58,9 @@ export default class Labels extends Vue {
 
     > svg {
       margin-right: 15px;
+      width: 18px;
+      height: 18px;
+      color: #666;
     }
   }
 }
@@ -71,7 +74,8 @@ export default class Labels extends Vue {
   //&-wrapper表示createTag的父元素
   &-wrapper {
     text-align: center;
-    margin-top: 44px;
+    margin-top: 28px;
+    padding: 16px;
   }
 }
 </style>

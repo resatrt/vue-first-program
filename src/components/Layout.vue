@@ -18,7 +18,7 @@
     };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .layout-wrapper {
 
         display: flex;

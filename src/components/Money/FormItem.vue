@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop, Watch} from 'vue-property-decorator';
+import {Component, Prop,} from 'vue-property-decorator';
 
 @Component
 export default class FormItem extends Vue {
@@ -35,7 +35,6 @@ export default class FormItem extends Vue {
   //     const input = event.target as HTMLInputElement;
   //     this.value = input.value;
   // }
-  @Watch('value')
   onValueChanged(value: string) {
     this.$emit('update:value', value);
   }
