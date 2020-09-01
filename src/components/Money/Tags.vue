@@ -58,9 +58,11 @@ export default class Tags extends Vue {
   flex-grow: 1;
   flex-direction: column-reverse;
   background: white;
+  justify-content: space-between;
 
   > .current {
     display: flex;
+    flex-wrap: wrap;
 
     > li {
       $bg: #D9D9D9;
@@ -71,6 +73,7 @@ export default class Tags extends Vue {
       line-height: $h; /*确定只有一行的时候才能使用height等于line-height*/
       margin-right: 12px;
       border-radius: ($h/2);
+      margin-top: 4px;
 
       &.selected {
         background: darken($bg, 50%);

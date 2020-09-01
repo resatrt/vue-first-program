@@ -1,6 +1,5 @@
 <template>
   <Layout class-prefix="layout">
-        {{ record }}
     <NumberPad :value.sync="record.amount" @submit="save"/>
     <!--    <Types :value="record.type"  @update:value="onUpdateType"/>-->
     <!--    如果出现 ：x='' @update:x='function' 这种，函数（只是）用来更新数据的，可以去掉后面的@update，直接用修饰符.sync-->
@@ -10,6 +9,7 @@
                 placeholder="请在这里输入备注"/>
     </div>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+    {{ record }}
   </Layout>
 </template>
 
@@ -27,14 +27,14 @@ import FormItem from '@/components/Money/FormItem.vue';
 const recordList = recordListModel.fetch();
 // JSON.parse(window.localStorage.getItem('recordList') || '[]');
 
-const tagList = tagListModel.fetch();
+
 
 @Component({
   components: {FormItem, Tags, Types, NumberPad},
 })
 export default class Money extends Vue {
 
-  tags = tagList; //不写死，从model里读取
+  tags = window.tagList; //不写死，从model里读取
   recordList = recordList;
   record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
 
@@ -47,7 +47,7 @@ export default class Money extends Vue {
   }
 
   save() {
-    recordListModel.create(this.record)
+    recordListModel.create(this.record);
   }
 
   @Watch('recordList')
