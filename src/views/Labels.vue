@@ -1,9 +1,9 @@
 <template>
   <layout>
     <div class="tags">
-      <router-link class="tag"  v-for="tag in tags" :key="tag.id"
+      <router-link class="tag" v-for="tag in tags" :key="tag.id"
                    :to="`/labels/edit/${tag.id}`">
-        <span>{{ tag.name}}</span>
+        <span>{{ tag.name }}</span>
         <Icons name="right"/>
       </router-link>
     </div>
@@ -15,9 +15,9 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import {Component} from "vue-property-decorator";
-import tagListModel from "@/models/tagListModel";
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+import tagListModel from '@/models/tagListModel';
 import Button from '@/components/Button.vue';
 
 
@@ -25,15 +25,13 @@ import Button from '@/components/Button.vue';
   components: {Button}
 })
 export default class Labels extends Vue {
-  tags = window.tagList
+  tags = window.tagList;
 
   createTag() {
-    const name = window.prompt('请输入标签名')
+    const name = window.prompt('请输入标签名');
     if (name) {
-      const message = tagListModel.create(name)
-      if(message==='duplicated'){
-        window.alert('标签名重复')
-      }
+     window.createTag(name)
+
 
     }
   }
@@ -48,8 +46,10 @@ export default class Labels extends Vue {
   background: white;
   font-size: 16px;
   padding-left: 15px;
+  max-height: 90%;
+  overflow: scroll;
 
-  >.tag {
+  > .tag {
     height: 44px;
     display: flex;
     align-items: center;
@@ -74,8 +74,9 @@ export default class Labels extends Vue {
   //&-wrapper表示createTag的父元素
   &-wrapper {
     text-align: center;
-    margin-top: 28px;
-    padding: 16px;
+    margin: 15px auto ;
+
+
   }
 }
 </style>

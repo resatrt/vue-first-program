@@ -19,6 +19,7 @@ type TagListModel = {
   save: () => void;//void表示不返回
 }//先将类型定义好
 
-interface Window{
+interface Window {
   tagList: Tag[];
+  createTag: (name: string) => void;
 }
