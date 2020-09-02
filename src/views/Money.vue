@@ -1,6 +1,6 @@
 <template>
   <Layout class-prefix="layout">
-    <NumberPad :value.sync="record.amount" @submit="save"/>
+    <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <!--    <Types :value="record.type"  @update:value="onUpdateType"/>-->
     <!--    如果出现 ：x='' @update:x='function' 这种，函数（只是）用来更新数据的，可以去掉后面的@update，直接用修饰符.sync-->
     <Types :value.sync="record.type"/>
@@ -18,13 +18,8 @@ import Vue from 'vue';
 import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from '@/components/Money/Types.vue';
 import Tags from '@/components/Money/Tags.vue';
-import {Component, Watch} from 'vue-property-decorator';
-import recordListModel from '@/models/recordListModel';
+import {Component,} from 'vue-property-decorator';
 import FormItem from '@/components/Money/FormItem.vue';
-
-
-const recordList = recordListModel.fetch();
-// JSON.parse(window.localStorage.getItem('recordList') || '[]');
 
 
 @Component({
@@ -33,7 +28,7 @@ const recordList = recordListModel.fetch();
 export default class Money extends Vue {
 
   tags = window.tagList; //不写死，从model里读取
-  recordList = recordList;
+  recordList =window.recordList;
   record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
 
   onUpdateTags(value: string[]) {
@@ -44,15 +39,10 @@ export default class Money extends Vue {
     this.record.notes = value;
   }
 
-  save() {
-    recordListModel.create(this.record);
+  saveRecord() {
+    window.createRecord(this.record);
   }
 
-  @Watch('recordList')
-  onRecordListChange() {
-    recordListModel.save();
-    // window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
-  }
 
   // onUpdateType(value: string) {
   //   this.record.type=value
