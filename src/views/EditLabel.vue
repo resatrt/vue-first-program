@@ -27,22 +27,20 @@ import Button from '@/components/Button.vue';
   components: {Button, FormItem}
 })
 export default class EditLabel extends Vue {
-  tag?: { id: string; name: string } = undefined;
+  tag?: Tag = undefined;
 
   created() {
-    const id = this.$route.params.id;
-    const tag = window.findTag(id);
+ //this.$route.params.id 是获取当前跳转页面的ID编号
+    this.tag = window.findTag(this.$route.params.id);
 
-    if (tag) {
-      this.tag = tag;
-    } else {
+    if (!this.tag) {
       this.$router.replace('/404');//用replace是为了防止不能回退，push()是回退后又重定向到404
     }
   }
 
   update(name: string) {
     if (this.tag) {
-     window.updateTag(this.tag.id, name);
+      window.updateTag(this.tag.id, name);
 
     }
   }
