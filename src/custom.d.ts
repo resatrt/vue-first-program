@@ -22,4 +22,7 @@ type TagListModel = {
 interface Window {
   tagList: Tag[];
   createTag: (name: string) => void;
+  removeTag: (id: string) => boolean;
+  updateTag: TagListModel['update'] ;  //意思是我的内容和TagListModel里的update类型一样
+  findTag: (id: string) => Tag;
 }
