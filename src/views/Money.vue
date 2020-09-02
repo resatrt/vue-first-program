@@ -8,7 +8,7 @@
       <FormItem field-name="备注" @update:value="onUpdateNotes"
                 placeholder="请在这里输入备注"/>
     </div>
-    <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+    <Tags  @update:value="onUpdateTags"/>
     {{ record }}
   </Layout>
 </template>
@@ -28,7 +28,6 @@ import store from '@/store/index2';
 })
 export default class Money extends Vue {
 
-  tags = store.tagList; //不写死，从model里读取
   recordList =store.recordList;
   record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
 

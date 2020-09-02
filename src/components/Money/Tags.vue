@@ -4,7 +4,7 @@
       <button @click="create">新增标签</button>
     </div>
     <ul class="current">
-      <li v-for="tag in dataSource" :key="tag.id"
+      <li v-for="tag in tagList" :key="tag.id"
           :class="{selected:selectedTags.indexOf(tag)>=0}"
           @click="toggle(tag)"
       >{{ tag.name }}
@@ -17,11 +17,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
+import store from '@/store/index2';
 
 @Component
 export default class Tags extends Vue {
-  @Prop() readonly dataSource: string[] | undefined;
+  tagList = store.fetchTags();
   selectedTags: string[] = [];
 
 
@@ -37,13 +38,11 @@ export default class Tags extends Vue {
 
   create() {
     const name = window.prompt('请输入标签名');
-    if (name === '') {
-      window.alert('输入不能为空');
-    } else if (this.dataSource) {
-      // if(this.dataSource){
-      //     this.dataSource.push(name!)//不能改外部数据
-      this.$emit('update:dataSource', [...this.dataSource, name]);
-    }   //当dataSource不为空时，会触发一个update事件，将后面的更新后的数据传给:data-source.sync="tags" （前提是该数据有添加.sync修饰符）
+    if (!name) {
+      return window.alert('输入不能为空');
+    }
+    store.createTag(name);
+    //当dataSource不为空时，会触发一个update事件，将后面的更新后的数据传给:data-source.sync="tags" （前提是该数据有添加.sync修饰符）
     /*     比如这里   <Tags :data-source.sync="tags"/>*/
 
   }
