@@ -37,7 +37,6 @@ const tagListModel: TagListModel = {
       } else {
         const tag = this.data.filter(item => item.id === id)[0];
         tag.name = name;
-        tag.id = name;//保持ID和名字一致
         this.save();
         return 'success';
       }

@@ -19,12 +19,5 @@ type TagListModel = {
   save: () => void;//void表示不返回
 }//先将类型定义好
 
-interface Window {
-  tagList: Tag[];
-  createTag: (name: string) => void;
-  removeTag: (id: string) => boolean;
-  updateTag: TagListModel['update'];  //意思是我的内容和TagListModel里的update类型一样
-  findTag: (id: string) => Tag;
-  recordList: RecordItem[];
-  createRecord: (record: RecordItem) => void;
-}
+// interface Window {
+// }

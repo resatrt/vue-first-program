@@ -22,6 +22,7 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import FormItem from '@/components/Money/FormItem.vue';
 import Button from '@/components/Button.vue';
+import store from '@/store/index2';
 
 @Component({
   components: {Button, FormItem}
@@ -31,7 +32,7 @@ export default class EditLabel extends Vue {
 
   created() {
  //this.$route.params.id 是获取当前跳转页面的ID编号
-    this.tag = window.findTag(this.$route.params.id);
+    this.tag = store.findTag(this.$route.params.id);
 
     if (!this.tag) {
       this.$router.replace('/404');//用replace是为了防止不能回退，push()是回退后又重定向到404
@@ -40,14 +41,14 @@ export default class EditLabel extends Vue {
 
   update(name: string) {
     if (this.tag) {
-      window.updateTag(this.tag.id, name);
+      store.updateTag(this.tag.id, name);
 
     }
   }
 
   remove() {
     if (this.tag) {
-      if (window.removeTag(this.tag.id)) {
+      if (store.removeTag(this.tag.id)) {
         this.goBack();
       } else {
         window.alert('删除失败');
