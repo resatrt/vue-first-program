@@ -21,10 +21,9 @@ import {Component} from 'vue-property-decorator';
 
 
 @Component({
-  computed:{
+  computed: {
     tagList() {
-      //TODO
-      // return  this.$store.fetchTags();
+      return this.$store.state.tagList;
     }
   }
 })
@@ -32,8 +31,13 @@ export default class Tags extends Vue {
 
   selectedTags: string[] = [];
 
+  created() {
+    this.$store.commit('fetchTags');
+  }
 
   toggle(tag: string) {
+    // console.log(this.selectedTags)
+    console.log(tag)
     const index = this.selectedTags.indexOf(tag);  //index值为>=0时表示该标签存在selectedTags里，即标签已被点击过，为-1时表示该标签还未被点击过或已取消点击
     if (index >= 0) {
       this.selectedTags.splice(index, 1);//删除
@@ -48,6 +52,7 @@ export default class Tags extends Vue {
     if (!name) {
       return window.alert('输入不能为空');
     }
+    this.$store.commit('createTag',name)
     //TODO
     // store.createTag(name);
     //当dataSource不为空时，会触发一个update事件，将后面的更新后的数据传给:data-source.sync="tags" （前提是该数据有添加.sync修饰符）
