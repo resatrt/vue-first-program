@@ -7,7 +7,7 @@
       <span class="rightIcon"></span>
     </div>
     <div class="form-wrapper">
-      <FormItem :value="tag.name"
+      <FormItem :value="currentTag.name"
                 @update:value="update"
                 field-name="标签名" placeholder="请输入标签名"/>
     </div>
@@ -31,7 +31,7 @@ import Button from '@/components/Button.vue';
 export default class EditLabel extends Vue {
   //从computed里拿tag的话在class里是没办法用的，只能在template里用
   //但是原生的get是可以的
-  get tag() {
+  get currentTag() {
     return this.$store.state.currentTag;
   }
 
@@ -39,30 +39,29 @@ export default class EditLabel extends Vue {
     //this.$route.params.id 是获取当前跳转页面的ID编号
     const id = this.$route.params.id;
     //这个ID在里面是拿不到的，而且也不需要在里面，只需要传给里面就好了
-    this.$store.commit('fetchTags');
+    this.$store.commit('fetchTags');//这句解决了改标签页面刷新404的bug
     this.$store.commit('setCurrentTag', id);
-    if (!this.tag) {
-      console.log('没tag');
+    if (!this.currentTag) {
+      // console.log('没tag');
       this.$router.replace('/404');
       //用replace是为了防止不能回退，push()是回退后又重定向到404
     } else {
-      console.log('有tag');
+      // console.log('有tag');
     }
   }
 
   update(name: string) {
-    console.log(this.tag);
-    if (this.tag) {
+    if (this.currentTag) {
       this.$store.commit('updateTag', {
-        id: this.tag.id, name: name
+        id: this.currentTag.id, name: name
       });
       // store.updateTag(this.tag.id, name);
     }
   }
 
   remove() {
-    if (this.tag) {
-      this.$store.commit('removeTag', this.tag.id);
+    if (this.currentTag) {
+      this.$store.commit('removeTag', this.currentTag.id);
     }
   }
 
