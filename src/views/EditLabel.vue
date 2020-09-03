@@ -39,32 +39,31 @@ export default class EditLabel extends Vue {
     //this.$route.params.id 是获取当前跳转页面的ID编号
     const id = this.$route.params.id;
     //这个ID在里面是拿不到的，而且也不需要在里面，只需要传给里面就好了
+    this.$store.commit('fetchTags');
     this.$store.commit('setCurrentTag', id);
     if (!this.tag) {
+      console.log('没tag');
       this.$router.replace('/404');
       //用replace是为了防止不能回退，push()是回退后又重定向到404
+    } else {
+      console.log('有tag');
     }
   }
 
   update(name: string) {
+    console.log(this.tag);
     if (this.tag) {
-      //TODO
+      this.$store.commit('updateTag', {
+        id: this.tag.id, name: name
+      });
       // store.updateTag(this.tag.id, name);
-
     }
   }
 
   remove() {
     if (this.tag) {
-      //TODO
-      return;
-      // if (store.removeTag(this.tag.id)) {
-      //   this.goBack();
-      // } else {
-      //   window.alert('删除失败');
-      // }
+      this.$store.commit('removeTag', this.tag.id);
     }
-
   }
 
   goBack() {

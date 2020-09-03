@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop,} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class FormItem extends Vue {
@@ -35,6 +35,9 @@ export default class FormItem extends Vue {
   //     const input = event.target as HTMLInputElement;
   //     this.value = input.value;
   // }
+
+  // @Watch('value')
+  // 不删除这个watch的话，他这一个值改变会重复两下 ，就导致更改标签时会触发两次
   onValueChanged(value: string) {
     this.$emit('update:value', value);
   }
