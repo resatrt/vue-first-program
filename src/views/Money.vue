@@ -24,21 +24,20 @@ import FormItem from '@/components/Money/FormItem.vue';
 
 @Component({
   components: {FormItem, Tags, Types, NumberPad},
-  computed:{
-    recordList(){
-      return  this.$store.state.recordList
-    }
-  }
 })
 export default class Money extends Vue {
 
-
   record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
- created(){
-  this.$store.commit('fetchRecords')
-   //一开始就读取recordList
 
- }
+  get recordList() {
+    return this.$store.state.recordList;
+  }
+
+  created() {
+    this.$store.commit('fetchRecords');
+    //一开始就读取recordList
+
+  }
 
   onUpdateTags(value: string[]) {
     this.record.tags = value;
@@ -50,8 +49,8 @@ export default class Money extends Vue {
 
   saveRecord() {
     this.$store.commit('createRecord', this.record);
-//vuex更改数据的操作都是commit（事件名,//要传递数据）
-    console.log(this.$store.state.recordList)
+    //vuex更改数据的操作都是commit（事件名,//要传递数据）
+    console.log(this.$store.state.recordList);
   }
 
 
