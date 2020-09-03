@@ -18,11 +18,18 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import store from '@/store/index2';
 
-@Component
+
+@Component({
+  computed:{
+    tagList() {
+      //TODO
+      // return  this.$store.fetchTags();
+    }
+  }
+})
 export default class Tags extends Vue {
-  tagList = store.fetchTags();
+
   selectedTags: string[] = [];
 
 
@@ -41,7 +48,8 @@ export default class Tags extends Vue {
     if (!name) {
       return window.alert('输入不能为空');
     }
-    store.createTag(name);
+    //TODO
+    // store.createTag(name);
     //当dataSource不为空时，会触发一个update事件，将后面的更新后的数据传给:data-source.sync="tags" （前提是该数据有添加.sync修饰符）
     /*     比如这里   <Tags :data-source.sync="tags"/>*/
 

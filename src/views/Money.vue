@@ -8,7 +8,7 @@
       <FormItem field-name="备注" @update:value="onUpdateNotes"
                 placeholder="请在这里输入备注"/>
     </div>
-    <Tags  @update:value="onUpdateTags"/>
+    <Tags @update:value="onUpdateTags"/>
     {{ record }}
   </Layout>
 </template>
@@ -20,16 +20,25 @@ import Types from '@/components/Money/Types.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component,} from 'vue-property-decorator';
 import FormItem from '@/components/Money/FormItem.vue';
-import store from '@/store/index2';
 
 
 @Component({
   components: {FormItem, Tags, Types, NumberPad},
+  computed:{
+    recordList(){
+      return  this.$store.state.recordList
+    }
+  }
 })
 export default class Money extends Vue {
 
-  recordList =store.recordList;
+
   record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
+ created(){
+  this.$store.commit('fetchRecords')
+   //一开始就读取recordList
+
+ }
 
   onUpdateTags(value: string[]) {
     this.record.tags = value;
@@ -40,7 +49,9 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    store.createRecord(this.record);
+    this.$store.commit('createRecord', this.record);
+//vuex更改数据的操作都是commit（事件名,//要传递数据）
+    console.log(this.$store.state.recordList)
   }
 
 
