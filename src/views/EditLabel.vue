@@ -25,24 +25,30 @@ import Button from '@/components/Button.vue';
 
 
 @Component({
-  components: {Button, FormItem}
+  components: {Button, FormItem},
+
 })
 export default class EditLabel extends Vue {
-  tag?: Tag = undefined;
+  //从computed里拿tag的话在class里是没办法用的，只能在template里用
+  //但是原生的get是可以的
+  get tag() {
+    return this.$store.state.currentTag;
+  }
 
   created() {
- //this.$route.params.id 是获取当前跳转页面的ID编号
-    //TODO
- //    this.tag = store.findTag(this.$route.params.id);
-
+    //this.$route.params.id 是获取当前跳转页面的ID编号
+    const id = this.$route.params.id;
+    //这个ID在里面是拿不到的，而且也不需要在里面，只需要传给里面就好了
+    this.$store.commit('setCurrentTag', id);
     if (!this.tag) {
-      this.$router.replace('/404');//用replace是为了防止不能回退，push()是回退后又重定向到404
+      this.$router.replace('/404');
+      //用replace是为了防止不能回退，push()是回退后又重定向到404
     }
   }
 
   update(name: string) {
     if (this.tag) {
-     //TODO
+      //TODO
       // store.updateTag(this.tag.id, name);
 
     }
@@ -51,7 +57,7 @@ export default class EditLabel extends Vue {
   remove() {
     if (this.tag) {
       //TODO
-      return
+      return;
       // if (store.removeTag(this.tag.id)) {
       //   this.goBack();
       // } else {

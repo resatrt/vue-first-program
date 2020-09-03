@@ -5,15 +5,21 @@ import createID from '@/lib/createID';
 
 Vue.use(Vuex);
 const localStorageKeyName = 'recordList';
+type rootState = {
+  recordList: RecordItem[];
+  tagList: Tag[];
+  currentTag?: Tag;
+}
 export default new Vuex.Store({
   state: {
-    recordList: [] as RecordItem[],
-    tagList: [] as Tag[]
-  },
+    recordList: [],
+    tagList: [],
+    currentTag: undefined
+  } as rootState,
   mutations: {
+    //record
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
-      //强制指定类型后，后面的很多被他赋值的都不用写类型了
     },
     createRecord(state, record) {
       const record2: RecordItem = clone(record);
@@ -27,8 +33,12 @@ export default new Vuex.Store({
       window.localStorage.setItem(localStorageKeyName,
         JSON.stringify(state.recordList));
     },
+    //tag
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
+    },
+    setCurrentTag(state, id: string) {
+      state.currentTag=state.tagList.filter(t => t.id === id)[0]
     },
     createTag(state, name: string) {
       const names = state.tagList.map(item => item.name);
