@@ -1,10 +1,11 @@
 <template>
   <div>
     <ul class="types">
-      <li :class="value ==='-'&&'selected'"
+      <li :class="{selected:value==='-',[classPrefix+'-item']:classPrefix}"
           @click="selectType('-')">支出
       </li>
-      <li :class="value ==='+'&&'selected'"
+      <!--  :class="{selected:value==='-'}"这种是表驱动写法    -->
+      <li :class="{selected:value==='+',[classPrefix+'-item']:classPrefix}"
           @click="selectType('+')">收入
       </li>
     </ul>
@@ -17,7 +18,8 @@ import {Component, Prop} from 'vue-property-decorator';
 
 @Component //这个component是个装饰器,把type：'-'放到data，selectType函数放到methods里
 export default class Types extends Vue {
-  @Prop() value!: string; //！是不要管我的初始值的意思
+  @Prop(String) readonly value!: string; //！是不要管我的初始值的意思
+  @Prop(String) classPrefix?: string;
   //Prop是告诉 Vue xxx不是data是prop
   //Number是告诉Vue xxx运行时是个Number
   //xxx 是属性名

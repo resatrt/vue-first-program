@@ -50,7 +50,7 @@ export default class Money extends Vue {
   saveRecord() {
     this.$store.commit('createRecord', this.record);
     //vuex更改数据的操作都是commit（事件名,//要传递数据）
-    console.log(this.$store.state.recordList);
+    // console.log(this.$store.state.recordList);
   }
 
 
