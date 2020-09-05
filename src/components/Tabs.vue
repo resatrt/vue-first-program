@@ -1,11 +1,11 @@
 <template>
   <ul class="tabs">
     <li v-for="item in dataSource" :key="item.value"
-        :class="liClass(item)"
+        :class="liClass(item)" class="tabs-item"
         @click="select(item)">
       {{ item.text }}
-<!--      :class="liClass(item)",不这样写就要这样写
-    ：class="{[classPrefix+'-tabs-item']:classPrefix,selected:item.value===value}"                 -->
+      <!--      :class="liClass(item)",不这样写就要这样写
+          ：class="{[classPrefix+'-tabs-item']:classPrefix,selected:item.value===value}"                 -->
     </li>
   </ul>
 </template>
@@ -43,7 +43,7 @@ export default class Tabs extends Vue {
   text-align: center;
   font-size: 24px;
 
-  > li {
+  &-item {
     width: 50%;
     height: 64px;
     display: flex;
@@ -52,7 +52,7 @@ export default class Tabs extends Vue {
     position: relative;
 
     &.selected {
-      &:after {
+      &::after {
         content: ''; /*如果直接用border-bottom的话会在显示的时候影响高度，有个变化*/
         position: absolute; /*用伪元素的绝对定位就没有影响*/
         bottom: 0;
