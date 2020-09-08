@@ -46,6 +46,15 @@ export default class Tags extends mixins(TagHelper) {
     this.$emit('update:value', this.selectedTags);
   }
 
+
+  // createTag() {
+  //   const name = window.prompt('请输入标签名');
+  //   if (!name) {
+  //     return window.alert('输入不能为空');
+  //   }
+  //   this.$store.commit('createTag', name);
+  // }
+
   //当dataSource不为空时，会触发一个update事件，将后面的更新后的数据传给:data-source.sync="tags" （前提是该数据有添加.sync修饰符）
   /*     比如这里   <Tags :data-source.sync="tags"/>*/
 

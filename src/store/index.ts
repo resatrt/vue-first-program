@@ -5,17 +5,13 @@ import createID from '@/lib/createID';
 import router from '@/router';
 
 Vue.use(Vuex);
-type rootState = {
-  recordList: RecordItem[];
-  tagList: Tag[];
-  currentTag?: Tag;
-}
+
 const store = new Vuex.Store({
   state: {
     recordList: [],
     tagList: [],
     currentTag: undefined
-  } as rootState,
+  } as RootState,
   mutations: {
     //record
     fetchRecords(state) {
@@ -23,7 +19,7 @@ const store = new Vuex.Store({
     },
     createRecord(state, record) {
       const record2: RecordItem = clone(record);
-      record2.createAt = new Date();//添加一个时间
+      record2.createAt = new Date().toISOString();//添加一个时间
       state.recordList.push(record2);
       store.commit('saveRecords');
 
