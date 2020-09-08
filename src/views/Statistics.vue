@@ -3,8 +3,8 @@
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
     <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
     <ol>
-      <li v-for="(group,index) in result" :key="index">
-        <h3 class="title">{{ group.title }}</h3>
+      <li v-for="group in result" :key="group.title">
+        <h3 class="title">{{ beauty(group.title) }}</h3>
         <ol>
           <li v-for="item in group.items" :key="item.id"
               class="record">
@@ -26,6 +26,8 @@ import {Component} from 'vue-property-decorator';
 import Tabs from '@/components/Tabs.vue';
 import intervalList from '@/constants/intervalList';
 import recordTypeList from '@/constants/recordTypeList';
+import dayjs from 'dayjs';
+
 
 @Component({
   components: {Tabs}
@@ -61,6 +63,23 @@ export default class Statistics extends Vue {
     }
     return hashTable;
   }
+
+  beauty(sting: string) {
+    const now = dayjs();
+    const day = dayjs(sting);
+    if (day.isSame(now, 'day')) {
+      return '今天';
+    } else if (day.isSame(now.subtract(1, 'day'), 'day')) {
+      return '昨天';
+    } else if (day.isSame(now.subtract(2, 'day'), 'day')) {
+      return '前天';
+    } else if (day.isSame(now, 'year')) {
+      return day.format('M月D日');
+    } else {
+      return day.format('YYYY年M月D日');
+    }
+  }
+
 
   type = '-';
   interval = 'day'; //间隔
@@ -102,9 +121,11 @@ export default class Statistics extends Vue {
   background: white;
   @extend %item;
 }
-.tag{
+
+.tag {
   min-width: 60px;
 }
+
 .notes {
   margin: 0 auto 0 16px;
   overflow-wrap: normal;
