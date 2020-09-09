@@ -43,7 +43,7 @@ export default class Money extends Vue {
 
   }
 
-  onUpdateTags(value: string[]) {
+  onUpdateTags(value: Tag[]) {
     this.record.tags = value;
   }
 
