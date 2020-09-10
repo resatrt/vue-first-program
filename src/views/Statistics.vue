@@ -1,10 +1,12 @@
 <template>
   <layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-<!--    <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>-->
+    <!--    <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>-->
     <ol>
       <li v-for="(group,index) in groupList" :key="index">
-        <h3 class="title">{{ beauty(group.title) }}</h3>
+        <h3 class="title">{{ beauty(group.title) }}
+          <span>￥{{ group.total }}</span>
+        </h3>
         <ol>
           <li v-for="item in group.items" :key="item.id"
               class="record">
@@ -51,10 +53,16 @@ export default class Statistics extends Vue {
   get groupList() {
     const {recordList} = this;
 
-    const newList = clone(recordList).sort(((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf()));
-    const result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
+    const newList = clone(recordList)
+        .filter(a => a.type === this.type)//分类收入还是支出
+        .sort(((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf()));
+
+    if (newList.length === 0) {return [] as Result;}
+    type Result = { title: string; total?: number; items: RecordItem[] }[]
+
+    const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
     //result={{title:年月日，item:RecordItem[]}}
-    for (let i = 1; i < newList.length - 1; i++) {
+    for (let i = 1; i < newList.length; i++) {
       const current = newList[i];
       const last = result[result.length - 1];
       if (dayjs(last.title).isSame(dayjs(current.createAt), 'day')) {
@@ -64,6 +72,9 @@ export default class Statistics extends Vue {
       }
     }
 
+    result.forEach(group => {
+      group.total = group.items.reduce((sum, index) => sum + index.amount, 0);
+    });
     // for (let i = 0; i < recordList.length; i++) {
     //   const [date, time] = recordList[i].createAt!.split('T');
     //   hashTable[date] = hashTable[date] || {title: date, items: []};
