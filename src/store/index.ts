@@ -90,7 +90,6 @@ const store = new Vuex.Store({
     saveTags(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
     }
-
   }
 });
 export default store;
