@@ -30,14 +30,18 @@ export default class Tags extends mixins(TagHelper) {
     return this.$store.state.tagList;
   }
 
-  selectedTags: string[] = [];
+  get selectedTags() {
+    return this.$store.state.selectedTags;
+  }
 
   created() {
     this.$store.commit('fetchTags');
   }
 
+
   toggle(tag: string) {
-    const index = this.selectedTags.indexOf(tag);  //index值为>=0时表示该标签存在selectedTags里，即标签已被点击过，为-1时表示该标签还未被点击过或已取消点击
+    const index = this.selectedTags.indexOf(tag);
+    //index值为>=0时表示该标签存在selectedTags里，即标签已被点击过，为-1时表示该标签还未被点击过或已取消点击
     if (index >= 0) {
       this.selectedTags.splice(index, 1);//删除
     } else {

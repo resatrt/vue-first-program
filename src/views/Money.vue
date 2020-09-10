@@ -54,19 +54,22 @@ export default class Money extends Vue {
 
   saveRecord() {
     if (!this.record.tags || this.record.tags.length === 0) {
-      window.alert('请至少选择一个标签')
-      this.record.notes=''
-      return ;
-    }
-    this.$store.commit('createRecord', this.record);
-    //vuex更改数据的操作都是commit（事件名,//要传递数据）
-    // console.log(this.$store.state.recordList);
-    if (this.$store.state.createRecordError === null) {
-      window.alert('保存成功');
+      window.alert('请至少选择一个标签');
       this.record.notes = '';
+      return;
+    } else if (this.record.amount === 0) {
+      window.alert('请输入具体金额');
+    } else {
+      this.$store.commit('createRecord', this.record);
+      //vuex更改数据的操作都是commit（事件名,//要传递数据）
+      // console.log(this.$store.state.recordList);
+      if (this.$store.state.createRecordError === null) {
+        window.alert('保存成功');
+        this.record.notes = '';
+      }
+      this.$store.state.selectedTags = [];
     }
   }
-
 
   // onUpdateType(value: string) {
   //   this.record.type=value

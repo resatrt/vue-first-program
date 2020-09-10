@@ -10,6 +10,7 @@ type RootState = {
   tagList: Tag[];
   currentTag?: Tag;
   createRecordError: Error | null;
+  selectedTags: Tag[];
 }
 type Tag = {
   id: string;
