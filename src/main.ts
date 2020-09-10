@@ -26,3 +26,14 @@ window.onload=function (){
     window.scrollTo(0,100)
   },0)
 }
+
+if(document.documentElement.clientWidth>500){
+  window.alert('请使用手机扫描屏幕上的二维码以便于更好的使用体验')
+  const img=document.createElement('img')
+  img.src='/qrcode.png'
+  img.style.position='fixed'
+  img.style.left='50%'
+  img.style.top='50%'
+  img.style.transform='translate(-50%,-50%)'
+  document.body.appendChild(img)
+}
