@@ -19,3 +19,10 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app');
+
+//帮助某些显示不出导航栏的浏览器直接滚动到最下面
+window.onload=function (){
+  setTimeout(function (){
+    window.scrollTo(0,100)
+  },0)
+}

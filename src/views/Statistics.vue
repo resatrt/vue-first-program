@@ -2,7 +2,7 @@
   <layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
     <!--    <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>-->
-    <ol>
+    <ol v-if="groupList.length>0">
       <li v-for="(group,index) in groupList" :key="index">
         <h3 class="title">{{ beauty(group.title) }}
           <span>￥{{ group.total }}</span>
@@ -18,6 +18,9 @@
         </ol>
       </li>
     </ol>
+    <div v-else class="noRecord">
+      没有查询到相关记录
+    </div>
   </layout>
 </template>
 
@@ -47,7 +50,7 @@ export default class Statistics extends Vue {
 
   tagString(tags: Tag[]) {
     const tag = tags.map(item => item.name);
-    return tags.length === 0 ? '无' : tag.join(',');
+    return tags.length === 0 ? '无' : tag.join('，');
   }
 
   get groupList() {
@@ -58,6 +61,7 @@ export default class Statistics extends Vue {
         .sort(((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf()));
 
     if (newList.length === 0) {return [] as Result;}
+    //因为filter有可能导致newList的值为空，会导致后面的bug
     type Result = { title: string; total?: number; items: RecordItem[] }[]
 
     const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
@@ -108,6 +112,11 @@ export default class Statistics extends Vue {
 </script>
 
 <style scoped lang="scss">
+.noRecord{
+  padding: 30px;
+  text-align: center;
+  font-size: 20px;
+}
 ::v-deep .type-tabs-item {
   background: white;
 

@@ -10,7 +10,8 @@ const store = new Vuex.Store({
   state: {
     recordList: [],
     tagList: [],
-    currentTag: undefined
+    currentTag: undefined,
+    createRecordError: null
   } as RootState,
   mutations: {
     //record
@@ -31,6 +32,12 @@ const store = new Vuex.Store({
     //tag
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+      if (!state.tagList || state.tagList.length === 0) {
+        store.commit('createTag', '衣');
+        store.commit('createTag', '食');
+        store.commit('createTag', '住');
+        store.commit('createTag', '行');
+      }
     },
     setCurrentTag(state, id: string) {
       state.currentTag = state.tagList.filter(t => t.id === id)[0];
@@ -73,6 +80,9 @@ const store = new Vuex.Store({
         router.back();
       } else {
         window.alert('删除失败');
+      }
+      if (state.tagList.length === 0) {
+        window.alert('最后一个标签了，删除了会重新创建4个原始标签');
       }
 
     },
