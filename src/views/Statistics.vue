@@ -5,7 +5,7 @@
     <ol v-if="groupList.length>0">
       <li v-for="(group,index) in groupList" :key="index">
         <h3 class="title">{{ beauty(group.title) }}
-          <span>￥{{ group.total }}</span>
+          <span>￥{{typeAmount(type)}}{{ group.total }}</span>
         </h3>
         <ol>
           <li v-for="item in group.items" :key="item.id"
@@ -13,7 +13,7 @@
             <span class="tag">{{ tagString(item.tags) }}</span>
             <span class="notes">
               {{ item.notes }} </span>
-            <span class="money">￥{{ item.amount }}</span>
+            <span class="money">￥{{typeAmount(type)}}{{ item.amount }}</span>
           </li>
         </ol>
       </li>
@@ -85,6 +85,13 @@ export default class Statistics extends Vue {
     //   hashTable[date].items.push(recordList[i]);
     // }
     return result;
+  }
+  typeAmount(type: string){
+    if(type==='-'){
+      return type
+    }else {
+      return
+    }
   }
 
   beauty(sting: string) {

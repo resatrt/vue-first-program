@@ -2,6 +2,7 @@
   <ul class="tabs">
     <li v-for="item in dataSource" :key="item.value"
         :class="liClass(item)" class="tabs-item"
+        :ref="item.value"
         @click="select(item)">
       {{ item.text }}
       <!--      :class="liClass(item)",不这样写就要这样写
