@@ -35,15 +35,15 @@ export default class Labels extends mixins(TagHelper) {
     this.$store.commit('fetchTags');
   }
 
-  createTag() {
-    const name = window.prompt('请输入标签名');
-    if (!name) {
-      return window.alert('输入不能为空');
-    }
-    this.$store.commit('createTag', name);
-
-  }
-
+  //   createTag() {
+  //     const name = window.prompt('请输入标签名');
+  //     if (!name) {
+  //       return window.alert('输入不能为空');
+  //     }
+  //     this.$store.commit('createTag', name);
+  //
+  //   }
+  //
 }
 
 </script>
