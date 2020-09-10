@@ -16,4 +16,12 @@
         color: #333;
       background: #E5E5E5;;
     }
+
+
+@media (min-width: 375px) {
+  #app{
+    max-width: 375px;
+    margin: 0 auto;
+  }
+}
 </style>
