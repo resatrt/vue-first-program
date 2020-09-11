@@ -42,6 +42,7 @@ export default class Tags extends mixins(TagHelper) {
   toggle(tag: string) {
     const index = this.selectedTags.indexOf(tag);
     //index值为>=0时表示该标签存在selectedTags里，即标签已被点击过，为-1时表示该标签还未被点击过或已取消点击
+
     if (index >= 0) {
       this.selectedTags.splice(index, 1);//删除
     } else {
@@ -49,7 +50,7 @@ export default class Tags extends mixins(TagHelper) {
     }
     this.$emit('update:value', this.selectedTags);
   }
-
+}
 
   // createTag() {
   //   const name = window.prompt('请输入标签名');
@@ -63,7 +64,7 @@ export default class Tags extends mixins(TagHelper) {
   /*     比如这里   <Tags :data-source.sync="tags"/>*/
 
   //
-}
+
 </script>
 
 <style lang="scss" scoped>

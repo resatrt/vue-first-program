@@ -25,7 +25,17 @@ window.onload = function () {
   setTimeout(function () {
     window.scrollTo(0, 100);
   }, 0);
+
+  const phoneWidth = document.documentElement.clientWidth
+
+  const phone = document.getElementById('app')
+  if(!phone){
+    return
+  }
+  phone.style.width=`${phoneWidth}px`
+  phone.style.height=`${phoneWidth*1.2}px`
 };
+
 
 // if (document.documentElement.clientWidth > 500) {
 //   window.alert('请使用手机扫描屏幕上的二维码以便于更好的使用体验');

@@ -3,10 +3,22 @@
     <label class="formItem">
 
       <span class="name">{{ this.fieldName }}</span>
-      <input type="text"
-             :value="value"
-             @input="onValueChanged($event.target.value)"
-             :placeholder="placeholder">
+      <template v-if="type==='date'">
+        <input :type="type"
+                :max="beautyString(new Date().toISOString())"
+                min="2010-01-01"
+               :value="beautyString(value)"
+               @input="onValueChanged($event.target.value)"
+               :placeholder="placeholder">
+      </template>
+      <template v-else>
+        <input :type="'text'"
+               :value="value"
+               @input="onValueChanged($event.target.value)"
+               :placeholder="placeholder">
+      </template>
+<!--//也可以使用更精确的<input type="datetime-local">  这个支持到时分，不支持秒（如果秒还要选择真的是傻逼)-->
+
       <!--  :value="value"
                    @input="onValueChanged($event.target.value)"  的意思是我只是帮助这个值中转  -->
 
@@ -23,12 +35,14 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
+import dayjs from 'dayjs';
 
 @Component
 export default class FormItem extends Vue {
   @Prop({default: ''}) readonly value!: string;
   @Prop({required: true}) fieldName!: string;
   @Prop() placeholder!: string;
+  @Prop() type?: string;
   // 方法一
   //  <input> 添加     @input="onInput
   // onInput(event: KeyboardEvent) {
@@ -41,7 +55,11 @@ export default class FormItem extends Vue {
   onValueChanged(value: string) {
     this.$emit('update:value', value);
   }
+  beautyString(iosString: string){
+   return   dayjs(iosString).format('YYYY-MM-DD')
+  }
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -58,7 +76,7 @@ export default class FormItem extends Vue {
 
   > input {
     flex-grow: 1;
-    height: 40px;
+    height: 26px;
     background: transparent;
     padding-right: 16px;
     border: none;

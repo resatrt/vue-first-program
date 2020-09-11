@@ -23,4 +23,7 @@ const recordStore = {
   },
 };
 recordStore.fetchRecords();
-export default recordStore;
+
+// export default recordStore;
+//这个已经不需要了，已经用vuex代替了
+//但是这个封装的思想过程还是重要的

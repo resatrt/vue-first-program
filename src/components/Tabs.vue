@@ -2,7 +2,6 @@
   <ul class="tabs">
     <li v-for="item in dataSource" :key="item.value"
         :class="liClass(item)" class="tabs-item"
-        :ref="item.value"
         @click="select(item)">
       {{ item.text }}
       <!--      :class="liClass(item)",不这样写就要这样写
@@ -46,7 +45,7 @@ export default class Tabs extends Vue {
 
   &-item {
     width: 50%;
-    height: 64px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;

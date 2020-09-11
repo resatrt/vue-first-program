@@ -22,4 +22,6 @@ git commit -m 'deploy'
 # 部署到 https://<USERNAME>.github.io/<REPO>
  git push -f git@github.com:resatrt/vue-first-program-website.git master:gh-pages
 
+ git push -f git@gitee.com:great-rivers/vue-first-program-website.git master:gh-pages
+
 cd -

@@ -1,25 +1,28 @@
 <template>
   <layout>
-    <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-    <!--    <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>-->
-    <ol v-if="groupList.length>0">
-      <li v-for="(group,index) in groupList" :key="index">
-        <h3 class="title">{{ beauty(group.title) }}
-          <span>￥{{typeAmount(type)}}{{ group.total }}</span>
-        </h3>
-        <ol>
-          <li v-for="item in group.items" :key="item.id"
-              class="record">
-            <span class="tag">{{ tagString(item.tags) }}</span>
-            <span class="notes">
+    <div class="wrapper">
+      <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
+      <!--    <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>-->
+      <Chart :options="x"/>
+      <ol v-if="groupList.length>0">
+        <li v-for="(group,index) in groupList" :key="index">
+          <h3 class="title">{{ beauty(group.title) }}
+            <span>￥{{ typeAmount(type) }}{{ group.total }}</span>
+          </h3>
+          <ol>
+            <li v-for="item in group.items" :key="item.id"
+                class="record">
+              <span class="tag">{{ tagString(item.tags) }}</span>
+              <span class="notes">
               {{ item.notes }} </span>
-            <span class="money">￥{{typeAmount(type)}}{{ item.amount }}</span>
-          </li>
-        </ol>
-      </li>
-    </ol>
-    <div v-else class="noRecord">
-      没有查询到相关记录
+              <span class="money">￥{{ typeAmount(type) }}{{ item.amount }}</span>
+            </li>
+          </ol>
+        </li>
+      </ol>
+      <div v-else class="noRecord">
+        没有查询到相关记录
+      </div>
     </div>
   </layout>
 </template>
@@ -33,10 +36,10 @@ import intervalList from '@/constants/intervalList';
 import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
-
+import Chart from '@/components/Chart.vue';
 
 @Component({
-  components: {Tabs}
+  components: {Tabs, Chart}
 })
 export default class Statistics extends Vue {
   get recordList() {
@@ -47,6 +50,51 @@ export default class Statistics extends Vue {
   beforeCreate() {
     this.$store.commit('fetchRecords');
   }
+
+  get x() {
+    const data = [];
+
+    for (let i = 0; i <= 360; i++) {
+      const t = i / 180 * Math.PI;
+      const r = Math.sin(2 * t) * Math.cos(2 * t);
+      data.push([r, i]);
+    }
+    return {
+      title: {
+        text: '极坐标双数值轴'
+      },
+      legend: {
+        data: ['line']
+      },
+      polar: {
+        center: ['50%', '54%']
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross'
+        }
+      },
+      angleAxis: {
+        type: 'value',
+        startAngle: 0
+      },
+      radiusAxis: {
+        min: 0
+      },
+      series: [
+        {
+          coordinateSystem: 'polar',
+          name: 'line',
+          type: 'line',
+          showSymbol: false,
+          data: data
+        }
+      ],
+      animationDuration: 2000
+    };
+  }
+
 
   tagString(tags: Tag[]) {
     const tag = tags.map(item => item.name);
@@ -86,11 +134,12 @@ export default class Statistics extends Vue {
     // }
     return result;
   }
-  typeAmount(type: string){
-    if(type==='-'){
-      return type
-    }else {
-      return
+
+  typeAmount(type: string) {
+    if (type === '-') {
+      return type;
+    } else {
+      return;
     }
   }
 
@@ -119,11 +168,16 @@ export default class Statistics extends Vue {
 </script>
 
 <style scoped lang="scss">
-.noRecord{
+.wrapper{
+  max-height: 90%;
+  overflow: scroll;
+}
+.noRecord {
   padding: 30px;
   text-align: center;
   font-size: 20px;
 }
+
 ::v-deep .type-tabs-item {
   background: white;
 

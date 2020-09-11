@@ -19,16 +19,20 @@ const store = new Vuex.Store({
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]');
     },
-    createRecord(state, record) {
+    // createRecord(state, record) {
+    //  const record2: RecordItem = clone(record);
+    //       record2.createAt = record2.createAt || new Date().toISOString();//添加一个时间
+    //       state.recordList.push(record2);
+    //   store.commit('saveRecords');
+    //
+    // },
+    saveRecords(state, record) {
       const record2: RecordItem = clone(record);
-      record2.createAt = new Date().toISOString();//添加一个时间
+      record2.createAt = record2.createAt || new Date().toISOString();//添加一个时间
       state.recordList.push(record2);
-      store.commit('saveRecords');
-
-    },
-    saveRecords(state) {
       window.localStorage.setItem('recordList',
         JSON.stringify(state.recordList));
+      state.selectedTags = [];
     },
     //tag
     fetchTags(state) {

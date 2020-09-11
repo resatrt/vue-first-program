@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" >
       <router-view/>
 <!--        /*根据路径显示需要显示的组件，即router里的index.ts文件里的routes*/-->
     </div>
@@ -18,10 +18,10 @@
     }
 
 
-@media (min-width: 375px) {
-  #app{
-    max-width: 375px;
-    margin: 0 auto;
-  }
-}
+//@media (min-width: 375px) {
+//  #app{
+//    max-width: 375px;
+//    margin: 0 auto;
+//  }
+//}
 </style>
