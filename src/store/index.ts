@@ -32,7 +32,10 @@ const store = new Vuex.Store({
       state.recordList.push(record2);
       window.localStorage.setItem('recordList',
         JSON.stringify(state.recordList));
-      state.selectedTags = [];
+         store.commit('clearSelectedTags')
+    },
+    clearSelectedTags(state){
+      state.selectedTags=[]
     },
     //tag
     fetchTags(state) {

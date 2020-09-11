@@ -7,8 +7,7 @@
     <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
     <div class="formWrapper ">
       <FormItem field-name="日期" :value.sync="record.createAt"
-                type="date"
-      />
+                type="date"/>
     </div>
     <div class="formWrapper note">
       <FormItem field-name="备注" :value.sync="record.notes"
@@ -36,9 +35,9 @@ export default class Money extends Vue {
 
   record: RecordItem = {tags: [], notes: '', type: '-', amount: 0, createAt: new Date().toISOString()};
 
-  get recordList() {
-    return this.$store.state.recordList;
-  }
+  // get recordList() {
+  //   return this.$store.state.recordList;
+  // }
 
   recordTypeList = recordTypeList;
 
@@ -72,7 +71,6 @@ export default class Money extends Vue {
         this.record.notes = '';
       }
     }
-    return;
   }
 
   // onUpdateType(value: string) {

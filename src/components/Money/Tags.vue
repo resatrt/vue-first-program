@@ -6,8 +6,8 @@
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id"
           :class="{selected:selectedTags.indexOf(tag)>=0}"
-          @click="toggle(tag)"
-      >{{ tag.name }}
+          @click="toggle(tag)">
+      {{ tag.name }}
         <!-- selected:selectedTags.indexOf(tag)>=0的意思是当选中的tag在selecedTags里，就添加selected               -->
 
       </li>
@@ -34,6 +34,7 @@ export default class Tags extends mixins(TagHelper) {
     return this.$store.state.selectedTags;
   }
 
+
   created() {
     this.$store.commit('fetchTags');
   }
@@ -50,8 +51,8 @@ export default class Tags extends mixins(TagHelper) {
     }
     this.$emit('update:value', this.selectedTags);
   }
-}
 
+}
   // createTag() {
   //   const name = window.prompt('请输入标签名');
   //   if (!name) {

@@ -56,6 +56,13 @@ export default class FormItem extends Vue {
     this.$emit('update:value', value);
   }
   beautyString(iosString: string){
+    //  if(dayjs(iosString,'YYYY-MM-DD').isValid()){
+
+    //  }
+    // console.log (' dayjs(iosString)')
+    // console.log ( dayjs(iosString))
+    // console.log("dayjs(iosString).format('YYYY-MM-DD')")
+    // console.log(dayjs(iosString).format('YYYY-MM-DD'))
    return   dayjs(iosString).format('YYYY-MM-DD')
   }
 }
