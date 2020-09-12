@@ -5,7 +5,7 @@
       <!--    <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>-->
 
       <div class="echarts-wrapper" ref="chartWrapper">
-        <Chart class="echarts" :options="x"/>
+        <Chart class="echarts" :options="chartOptions"/>
       </div>
       <ol v-if="groupList.length>0">
         <li v-for="(group,index) in groupList" :key="index">
@@ -61,7 +61,7 @@ export default class Statistics extends Vue {
     //让图表直接显示在最右边，即最近日期
   }
 
-  get y() {
+  get keyValueList() {
     const today = dayjs().format('YYYY-MM-DD');
     const result = this.groupList;
     const array = [];
@@ -69,12 +69,12 @@ export default class Statistics extends Vue {
       const dateString = dayjs(today).subtract(i, 'day').format('YYYY-MM-DD');
       const found = _.find(result, {title: dateString});
       //lodash需要安装
-      array.push({date: dateString, value: found ? found.total : 0});
+      array.push({key: dateString, value: found ? found.total : 0});
     }
     array.sort((a, b) => {
-      if (a.date > b.date) {
+      if (a.key > b.key) {
         return 1;
-      } else if (a.date === b.date) {
+      } else if (a.key === b.key) {
         return 0;
       } else {
         return -1;
@@ -83,10 +83,10 @@ export default class Statistics extends Vue {
     return array;
   }
 
-  get x() {
+  get chartOptions() {
 
-    const keys = this.y.map(item => item.date);
-    const values = this.y.map(item => item.value);
+    const keys = this.keyValueList.map(item => item.key);
+    const values = this.keyValueList.map(item => item.value);
     return {
       grid: {
         left: 0,
@@ -97,9 +97,11 @@ export default class Statistics extends Vue {
         data: keys,
         axisTick: {alignWithLabel: true},
         axisLine: {lineStyle: {color: '#666'}},
-        axisLabel:{formatter: function (value) {
-            return value.substr(5)
-          }}
+        axisLabel: {
+          formatter: function (value) {
+            return value.substr(5);
+          }
+        }
 
       },
       yAxis: {
