@@ -3,7 +3,10 @@
     <div class="wrapper">
       <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
       <!--    <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>-->
-      <Chart :options="x"/>
+
+      <div class="echarts-wrapper">
+        <Chart class="echarts" :options="x"/>
+      </div>
       <ol v-if="groupList.length>0">
         <li v-for="(group,index) in groupList" :key="index">
           <h3 class="title">{{ beauty(group.title) }}
@@ -52,49 +55,43 @@ export default class Statistics extends Vue {
   }
 
   get x() {
-    const data = [];
 
-    for (let i = 0; i <= 360; i++) {
-      const t = i / 180 * Math.PI;
-      const r = Math.sin(2 * t) * Math.cos(2 * t);
-      data.push([r, i]);
-    }
     return {
-      title: {
-        text: '极坐标双数值轴'
+      grid: {
+        left: 0,
+        right: 0,
       },
-      legend: {
-        data: ['line']
+      xAxis: {
+        type: 'category',
+        data: ['1', '2', '3', '4', '5', '6', '7',
+          '8', '9', '10', '11', '12', '13', '14',
+          '15', '16', '17', '18', '19', '20', '21',
+          '22', '23', '24', '25', '26', '27', '28',
+          '29', '30'],
+        axisTick:{alignWithLabel:true},
+        axisLine:{lineStyle:{color:'#666'}}
       },
-      polar: {
-        center: ['50%', '54%']
-      },
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'cross'
-        }
-      },
-      angleAxis: {
+      yAxis: {
         type: 'value',
-        startAngle: 0
+        show: false,
+
       },
-      radiusAxis: {
-        min: 0
-      },
-      series: [
-        {
-          coordinateSystem: 'polar',
-          name: 'line',
-          type: 'line',
-          showSymbol: false,
-          data: data
-        }
-      ],
-      animationDuration: 2000
+      series: [{
+        data: [820, 932, 901, 934, 1290, 1330, 1320,
+          820, 932, 901, 934, 1290, 1330, 1320,
+          820, 932, 901, 934, 1290, 1330, 1320,
+          820, 932, 901, 934, 1290, 1330, 1320,
+          820, 932,],
+        type: 'line',
+        symbol:'circle',
+        symbolSize: 13,
+        itemStyle:{color:'#666',borderColor:'#666'},
+      }],
+      tooltip:{show:true,triggerOn:'click',
+       position:'top',
+        formatter: '{c}'}
     };
   }
-
 
   tagString(tags: Tag[]) {
     const tag = tags.map(item => item.name);
@@ -168,10 +165,23 @@ export default class Statistics extends Vue {
 </script>
 
 <style scoped lang="scss">
-.wrapper{
+.wrapper {
   max-height: 90%;
   overflow: scroll;
 }
+
+.echarts {
+  width: 420%;
+
+  &-wrapper {
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      display: none; /* Safari and Chrome */
+    }
+  }
+}
+
 .noRecord {
   padding: 30px;
   text-align: center;
