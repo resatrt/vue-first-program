@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import clone from '@/lib/clone';
 import createID from '@/lib/createID';
 import router from '@/router';
+import dayjs from 'dayjs';
 
 Vue.use(Vuex);
 
@@ -28,15 +29,16 @@ const store = new Vuex.Store({
     // },
     saveRecords(state, record) {
       const record2: RecordItem = clone(record);
-      record2.createAt = record2.createAt || new Date().toISOString();//添加一个时间
+      record2.createAt = record2.createAt || dayjs().format('YYYY-MM-DD');//添加一个时间
       state.recordList.push(record2);
       window.localStorage.setItem('recordList',
         JSON.stringify(state.recordList));
-         store.commit('clearSelectedTags')
-    },
-    clearSelectedTags(state){
+         // store.commit('clearSelectedTags',[])
       state.selectedTags=[]
     },
+    // clearSelectedTags(state){
+    //   state.selectedTags=[]
+    // },
     //tag
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');

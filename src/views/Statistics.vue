@@ -4,7 +4,7 @@
       <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
       <!--    <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>-->
 
-      <div class="echarts-wrapper">
+      <div class="echarts-wrapper" ref="chartWrapper">
         <Chart class="echarts" :options="x"/>
       </div>
       <ol v-if="groupList.length>0">
@@ -40,6 +40,7 @@ import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
 import Chart from '@/components/Chart.vue';
+import _ from 'lodash';
 
 @Component({
   components: {Tabs, Chart}
@@ -54,8 +55,38 @@ export default class Statistics extends Vue {
     this.$store.commit('fetchRecords');
   }
 
+  mounted() {
+    const div = this.$refs.chartWrapper as HTMLDivElement;
+    div.scrollLeft = div.scrollWidth;
+    //让图表直接显示在最右边，即最近日期
+  }
+
+  get y() {
+    const today = dayjs().format('YYYY-MM-DD');
+    const result = this.groupList;
+    const array = [];
+    for (let i = 0; i <= 29; i++) {
+      const dateString = dayjs(today).subtract(i, 'day').format('YYYY-MM-DD');
+      const found = _.find(result, {title: dateString});
+      //lodash需要安装
+      array.push({date: dateString, value: found ? found.total : 0});
+    }
+    array.sort((a, b) => {
+      if (a.date > b.date) {
+        return 1;
+      } else if (a.date === b.date) {
+        return 0;
+      } else {
+        return -1;
+      }
+    });
+    return array;
+  }
+
   get x() {
 
+    const keys = this.y.map(item => item.date);
+    const values = this.y.map(item => item.value);
     return {
       grid: {
         left: 0,
@@ -63,13 +94,9 @@ export default class Statistics extends Vue {
       },
       xAxis: {
         type: 'category',
-        data: ['1', '2', '3', '4', '5', '6', '7',
-          '8', '9', '10', '11', '12', '13', '14',
-          '15', '16', '17', '18', '19', '20', '21',
-          '22', '23', '24', '25', '26', '27', '28',
-          '29', '30'],
-        axisTick:{alignWithLabel:true},
-        axisLine:{lineStyle:{color:'#666'}}
+        data: keys,
+        axisTick: {alignWithLabel: true},
+        axisLine: {lineStyle: {color: '#666'}}
       },
       yAxis: {
         type: 'value',
@@ -77,19 +104,17 @@ export default class Statistics extends Vue {
 
       },
       series: [{
-        data: [820, 932, 901, 934, 1290, 1330, 1320,
-          820, 932, 901, 934, 1290, 1330, 1320,
-          820, 932, 901, 934, 1290, 1330, 1320,
-          820, 932, 901, 934, 1290, 1330, 1320,
-          820, 932,],
+        data: values,
         type: 'line',
-        symbol:'circle',
+        symbol: 'circle',
         symbolSize: 13,
-        itemStyle:{color:'#666',borderColor:'#666'},
+        itemStyle: {color: '#666', borderColor: '#666'},
       }],
-      tooltip:{show:true,triggerOn:'click',
-       position:'top',
-        formatter: '{c}'}
+      tooltip: {
+        show: true, triggerOn: 'click',
+        position: 'top',
+        formatter: '{c}'
+      }
     };
   }
 
@@ -124,11 +149,7 @@ export default class Statistics extends Vue {
     result.forEach(group => {
       group.total = group.items.reduce((sum, index) => sum + index.amount, 0);
     });
-    // for (let i = 0; i < recordList.length; i++) {
-    //   const [date, time] = recordList[i].createAt!.split('T');
-    //   hashTable[date] = hashTable[date] || {title: date, items: []};
-    //   hashTable[date].items.push(recordList[i]);
-    // }
+
     return result;
   }
 

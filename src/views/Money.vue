@@ -26,6 +26,7 @@ import {Component,} from 'vue-property-decorator';
 import FormItem from '@/components/Money/FormItem.vue';
 import recordTypeList from '@/constants/recordTypeList';
 import Tabs from '@/components/Tabs.vue';
+import dayjs from 'dayjs';
 
 
 @Component({
@@ -33,7 +34,7 @@ import Tabs from '@/components/Tabs.vue';
 })
 export default class Money extends Vue {
 
-  record: RecordItem = {tags: [], notes: '', type: '-', amount: 0, createAt: new Date().toISOString()};
+  record: RecordItem = {tags: [], notes: '', type: '-', amount: 0, createAt: dayjs().format('YYYY-MM-DD')};
 
   // get recordList() {
   //   return this.$store.state.recordList;
@@ -48,7 +49,7 @@ export default class Money extends Vue {
   }
 
   onUpdateTags(value: Tag[]) {
-    this.record.tags = value;
+   this.record.tags = value;
   }
 
   // onUpdateNotes(value: string) {
@@ -66,11 +67,13 @@ export default class Money extends Vue {
       this.$store.commit('saveRecords', this.record);
       //vuex更改数据的操作都是commit（事件名,//要传递数据）
       // console.log(this.$store.state.recordList);
+
       if (this.$store.state.createRecordError === null) {
         window.alert('保存成功');
         this.record.notes = '';
       }
     }
+
   }
 
   // onUpdateType(value: string) {
