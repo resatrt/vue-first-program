@@ -1,5 +1,6 @@
 <template>
   <layout>
+    <h2 class="title"><span>标签列表</span></h2>
     <div class="tags">
       <router-link class="tag" v-for="tag in tags" :key="tag.id"
                    :to="`/labels/edit/${tag.id}`">
@@ -49,6 +50,18 @@ export default class Labels extends mixins(TagHelper) {
 </script>
 
 <style lang="scss" scoped>
+.title {
+  text-align: center;
+  margin: 15px auto;
+  > span {
+    padding :8px;
+    color: white;
+    background:#767676;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px; ;
+  }
+}
 
 .tags {
   background: white;

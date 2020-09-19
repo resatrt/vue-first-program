@@ -51,7 +51,16 @@ export default class Money extends Vue {
   onUpdateTags(value: Tag[]) {
    this.record.tags = value;
   }
-
+    //
+    // updateDate(value:string){
+    //   const toDay = dayjs().format('YYYY-MM-DD');
+    //   if (!dayjs(value).isAfter(toDay, 'day')) {
+    //     this.record.createAt=value
+    //   } else {
+    //    this.record.createAt=toDay
+    //
+    //   }
+    // }
   // onUpdateNotes(value: string) {
   //   this.record.notes = value;
   // }

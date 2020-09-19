@@ -88,7 +88,8 @@ export default class EditLabel extends Vue {
   }
 
   > .title {
-
+    font-weight: bold;
+    font-size: 22px;
   }
 
   .rightIcon {
@@ -100,7 +101,7 @@ export default class EditLabel extends Vue {
 .form-wrapper {
   background: white;
   margin-top: 8px;
-
+  line-height: 15px;
 }
 
 .button-wrapper {
@@ -109,4 +110,20 @@ export default class EditLabel extends Vue {
   margin-top: 28px;
 }
 
+::v-deep .formItem {
+  line-height: 42px;
+  margin: 5px auto;
+
+  > span {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: -16px;
+    padding: 0 0 0 14px;
+
+  }
+
+  > input {
+    font-size: 18px;
+  }
+}
 </style>

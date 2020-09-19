@@ -83,14 +83,14 @@ export default class Tags extends mixins(TagHelper) {
 
     > li {
       $bg: #D9D9D9;
-      $h: 24px;
+      $h: 30px;
       background: $bg;
-      padding: 0 16px;
+      padding: 0 20px;
       height: $h;
       line-height: $h; /*确定只有一行的时候才能使用height等于line-height*/
       margin-right: 12px;
-      border-radius: ($h/2);
-      margin-top: 4px;
+      border-radius: (($h/2)+1);
+      margin-top: 6px;
 
       &.selected {
         background: darken($bg, 50%);
@@ -105,7 +105,7 @@ export default class Tags extends mixins(TagHelper) {
     button {
       background: transparent;
       border: none;
-      border-bottom: 1px solid;
+      border-bottom: 2px solid red;
       color: #999;
       padding: 0 4px;
     }

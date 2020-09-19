@@ -5,8 +5,8 @@
       <span class="name">{{ this.fieldName }}</span>
       <template v-if="type==='date'">
         <input :type="type"
-                :max="beautyString(new Date().toISOString())"
-                min="2010-01-01"
+               :max="beautyString(new Date().toISOString())"
+               min="2010-01-01"
                :value="beautyString(value)"
                @input="onValueChanged($event.target.value)"
                :placeholder="placeholder">
@@ -17,7 +17,8 @@
                @input="onValueChanged($event.target.value)"
                :placeholder="placeholder">
       </template>
-<!--//也可以使用更精确的<input type="datetime-local">  这个支持到时分，不支持秒（如果秒还要选择真的是傻逼)-->
+
+      <!--//也可以使用更精确的<input type="datetime-local">  这个支持到时分，不支持秒（如果秒还要选择真的是傻逼)-->
 
       <!--  :value="value"
                    @input="onValueChanged($event.target.value)"  的意思是我只是帮助这个值中转  -->
@@ -39,7 +40,7 @@ import dayjs from 'dayjs';
 
 @Component
 export default class FormItem extends Vue {
-  @Prop({default: ''}) readonly value!: string;
+  @Prop({default: ''}) value!: string;
   @Prop({required: true}) fieldName!: string;
   @Prop() placeholder!: string;
   @Prop() type?: string;
@@ -53,17 +54,19 @@ export default class FormItem extends Vue {
   // @Watch('value')
   // 不删除这个watch的话，他这一个值改变会重复两下 ，就导致更改标签时会触发两次
   onValueChanged(value: string) {
-    this.$emit('update:value', value);
+    const toDay = dayjs().format('YYYY-MM-DD');
+    if (!dayjs(this.value).isAfter(toDay, 'day')) {
+      this.$emit('update:value', value);
+    } else {
+      this.value = toDay;
+      this.$emit('update:value', value);
+    }
   }
-  beautyString(iosString: string){
-    //  if(dayjs(iosString,'YYYY-MM-DD').isValid()){
 
-    //  }
-    // console.log (' dayjs(iosString)')
-    // console.log ( dayjs(iosString))
-    // console.log("dayjs(iosString).format('YYYY-MM-DD')")
-    // console.log(dayjs(iosString).format('YYYY-MM-DD'))
-   return   dayjs(iosString).format('YYYY-MM-DD')
+  beautyString(iosString: string) {
+    //  if(dayjs(iosString,'YYYY-MM-DD').isValid()){}
+
+    return dayjs(iosString).format('YYYY-MM-DD');
   }
 }
 
@@ -73,7 +76,7 @@ export default class FormItem extends Vue {
 .formItem {
 
   display: flex;
-  font-size: 14px;
+  font-size: 16px;
   padding-left: 16px;
   align-items: center;
 

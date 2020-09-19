@@ -5,8 +5,8 @@ import createID from '@/lib/createID';
 import router from '@/router';
 import dayjs from 'dayjs';
 
-Vue.use(Vuex);
 
+Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     recordList: [],
