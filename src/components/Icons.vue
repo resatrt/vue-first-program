@@ -10,9 +10,9 @@
         name: 'Icons',
         props: ['name'],
     };
-    const improtAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().forEach(requireContext);
+    const importAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().forEach(requireContext);
     try {
-        improtAll(require.context('../assets/icons', true, /\.svg$/));
+        importAll(require.context('../assets/icons', true, /\.svg$/));
         //获取icons目录里的.svg文件，这个路径只能是相对路径，不能用@
     } catch (error) {
         console.log(error);

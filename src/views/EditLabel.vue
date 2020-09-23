@@ -126,4 +126,5 @@ export default class EditLabel extends Vue {
     font-size: 18px;
   }
 }
+
 </style>

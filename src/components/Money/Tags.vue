@@ -83,13 +83,13 @@ export default class Tags extends mixins(TagHelper) {
 
     > li {
       $bg: #D9D9D9;
-      $h: 30px;
+      $h: 40px;
       background: $bg;
       padding: 0 20px;
       height: $h;
       line-height: $h; /*确定只有一行的时候才能使用height等于line-height*/
       margin-right: 12px;
-      border-radius: (($h/2)+1);
+      border-radius: (($h/5));
       margin-top: 6px;
 
       &.selected {
