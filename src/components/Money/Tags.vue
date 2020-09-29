@@ -5,7 +5,7 @@
     </div>
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id"
-          :class="{selected:selectedTags.indexOf(tag)>=0}"
+          :class="{selected:selectedTags.indexOf(tag)>0}"
           @click="toggle(tag)">
       {{ tag.name }}
         <!-- selected:selectedTags.indexOf(tag)>=0的意思是当选中的tag在selecedTags里，就添加selected               -->
@@ -83,13 +83,13 @@ export default class Tags extends mixins(TagHelper) {
 
     > li {
       $bg: #D9D9D9;
-      $h: 40px;
+      $h: 32px;
       background: $bg;
-      padding: 0 20px;
+      padding: 0 16px;
       height: $h;
       line-height: $h; /*确定只有一行的时候才能使用height等于line-height*/
       margin-right: 12px;
-      border-radius: (($h/5));
+      border-radius: 18px;
       margin-top: 6px;
 
       &.selected {

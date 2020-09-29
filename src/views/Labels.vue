@@ -1,15 +1,17 @@
 <template>
-  <layout>
-    <h2 class="title"><span>标签列表</span></h2>
-    <div class="tags">
-      <router-link class="tag" v-for="tag in tags" :key="tag.id"
-                   :to="`/labels/edit/${tag.id}`">
-        <span>{{ tag.name }}</span>
-        <Icons name="right"/>
-      </router-link>
-    </div>
-    <div class="createTag-wrapper">
-      <Button class="createTag" @click="createTag">新建标签</Button>
+  <layout >
+    <div class="wrapper">
+      <h2 class="title"><span>标签列表</span></h2>
+      <div class="tags">
+        <router-link class="tag" v-for="tag in tags" :key="tag.id"
+                     :to="`/labels/edit/${tag.id}`">
+          <span>{{ tag.name }}</span>
+          <Icons name="right"/>
+        </router-link>
+      </div>
+      <div class="createTag-wrapper">
+        <Button class="createTag" @click="createTag">新建标签</Button>
+      </div>
     </div>
   </layout>
 
@@ -50,16 +52,21 @@ export default class Labels extends mixins(TagHelper) {
 </script>
 
 <style lang="scss" scoped>
+.wrapper{
+ height: 90.5vh;
+}
+
 .title {
   text-align: center;
   margin: 15px auto;
+
   > span {
-    padding :8px;
+    padding: 8px;
     color: white;
-    background:#767676;
+    background: #767676;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
-    border-radius: 4px; ;
+    border-radius: 4px;;
   }
 }
 
@@ -67,8 +74,9 @@ export default class Labels extends mixins(TagHelper) {
   background: white;
   font-size: 16px;
   padding-left: 15px;
-  max-height: 90%;
+  max-height: 74vh;
   overflow: scroll;
+
 
   > .tag {
     height: 44px;
@@ -96,7 +104,11 @@ export default class Labels extends mixins(TagHelper) {
   &-wrapper {
     text-align: center;
     margin: 15px auto;
-
+    overflow: hidden;
+    position: fixed;
+    top: 82.5%;
+    left: 50%;
+    transform: translateX(-50%);
 
   }
 }

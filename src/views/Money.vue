@@ -1,5 +1,5 @@
 <template>
-  <Layout class-prefix="layout">
+  <Layout class-prefix="layout" :style="{height:maxHeight+'px'}">
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
     <!--    <Types :value="record.type"  @update:value="onUpdateType"/>-->
     <!--    如果出现 ：x='' @update:x='function' 这种，函数（只是）用来更新数据的，可以去掉后面的@update，直接用修饰符.sync-->
@@ -36,12 +36,12 @@ export default class Money extends Vue {
 
   record: RecordItem = {tags: [], notes: '', type: '-', amount: 0, createAt: dayjs().format('YYYY-MM-DD')};
 
-  // get recordList() {
-  //   return this.$store.state.recordList;
-  // }
+  get recordList() {
+    return this.$store.state.recordList;
+  }
 
   recordTypeList = recordTypeList;
-
+  maxHeight=document.documentElement.clientHeight
   created() {
     this.$store.commit('fetchRecords');
     //一开始就读取recordList
@@ -49,18 +49,19 @@ export default class Money extends Vue {
   }
 
   onUpdateTags(value: Tag[]) {
-   this.record.tags = value;
+    this.record.tags = value;
   }
-    //
-    // updateDate(value:string){
-    //   const toDay = dayjs().format('YYYY-MM-DD');
-    //   if (!dayjs(value).isAfter(toDay, 'day')) {
-    //     this.record.createAt=value
-    //   } else {
-    //    this.record.createAt=toDay
-    //
-    //   }
-    // }
+
+  //
+  // updateDate(value:string){
+  //   const toDay = dayjs().format('YYYY-MM-DD');
+  //   if (!dayjs(value).isAfter(toDay, 'day')) {
+  //     this.record.createAt=value
+  //   } else {
+  //    this.record.createAt=toDay
+  //
+  //   }
+  // }
   // onUpdateNotes(value: string) {
   //   this.record.notes = value;
   // }
@@ -106,9 +107,8 @@ export default class Money extends Vue {
   }
 
   > .formWrapper.note {
-    box-shadow: -1px 1px 10px 2px rgba(196,196,196,1);
+    box-shadow: -1px 1px 10px 2px rgba(196, 196, 196, 1);
   }
-
   /*   column-reverse就是从下往上排列 ，想要保持原来的结构就需要将HTML倒过来    */
 }
 

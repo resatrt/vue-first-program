@@ -1,18 +1,20 @@
 <template>
   <Layout>
-    <div class="navBar">
-      <Icons class="leftIcon" name="left" @click="goBack"/>
-      <!-- @click="goBack"也可以用@click.native='goBack'， Icons.vue里就不需要透传了     -->
-      <span class="title"> 编辑标签</span>
-      <span class="rightIcon"></span>
-    </div>
-    <div class="form-wrapper">
-      <FormItem :value="currentTag.name"
-                @update:value="update"
-                field-name="标签名" placeholder="请输入标签名"/>
-    </div>
-    <div class="button-wrapper">
-      <Button @click="remove">删除标签</Button>
+    <div class="wrapper">
+      <div class="navBar">
+        <Icons class="leftIcon" name="left" @click="goBack"/>
+        <!-- @click="goBack"也可以用@click.native='goBack'， Icons.vue里就不需要透传了     -->
+        <span class="title"> 编辑标签</span>
+        <span class="rightIcon"></span>
+      </div>
+      <div class="form-wrapper">
+        <FormItem :value="currentTag.name"
+                  @update:value="update"
+                  field-name="标签名" placeholder="请输入标签名"/>
+      </div>
+      <div class="button-wrapper">
+        <Button @click="remove">删除标签</Button>
+      </div>
     </div>
   </Layout>
 </template>
@@ -72,6 +74,9 @@ export default class EditLabel extends Vue {
 </script>
 
 <style lang='scss' scoped>
+.wrapper{
+  height:93vh ;
+}
 .navBar {
   text-align: center;
   padding: 12px 16px;
