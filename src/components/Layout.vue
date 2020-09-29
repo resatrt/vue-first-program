@@ -37,5 +37,6 @@ export default {
 }
 .footer{
   margin-top: auto;
+
 }
 </style>

@@ -3,7 +3,6 @@
     <div class="wrapper">
       <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
       <!--    <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>-->
-
       <div class="echarts-wrapper" ref="chartWrapper">
         <Chart class="echarts" :options="chartOptions"/>
       </div>
@@ -193,8 +192,11 @@ export default class Statistics extends Vue {
 
 <style scoped lang="scss">
 .wrapper {
-  max-height: 90%;
-  overflow: scroll;
+  max-height: 90vh;
+
+  >ol{
+    overflow: hidden;
+  }
 }
 
 .echarts {

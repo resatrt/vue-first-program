@@ -5,7 +5,7 @@
     </div>
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id"
-          :class="{selected:selectedTags.indexOf(tag)>0}"
+          :class="{selected:selectedTags.indexOf(tag)>=0}"
           @click="toggle(tag)">
       {{ tag.name }}
         <!-- selected:selectedTags.indexOf(tag)>=0的意思是当选中的tag在selecedTags里，就添加selected               -->
@@ -16,8 +16,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-
+// import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import {mixins} from 'vue-class-component';
 import TagHelper from '@/mixins/TagHelper';
