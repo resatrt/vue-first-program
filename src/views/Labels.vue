@@ -18,7 +18,6 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Button from '@/components/Button.vue';
 import {mixins} from 'vue-class-component';
@@ -52,13 +51,11 @@ export default class Labels extends mixins(TagHelper) {
 </script>
 
 <style lang="scss" scoped>
-.wrapper{
- height: 90.5vh;
-}
 
 .title {
   text-align: center;
   margin: 15px auto;
+  position: relative;
 
   > span {
     padding: 8px;
@@ -105,11 +102,10 @@ export default class Labels extends mixins(TagHelper) {
     text-align: center;
     margin: 15px auto;
     overflow: hidden;
-    position: fixed;
-    top: 82.5%;
-    left: 50%;
+    position: absolute;
+    top: 81.5vh;
+    left: 50vw;
     transform: translateX(-50%);
-
   }
 }
 </style>

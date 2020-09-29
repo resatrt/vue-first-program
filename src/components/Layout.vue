@@ -7,7 +7,7 @@
       <!--            slot是把这个位置传进来的东西放到这里显示-->
       <slot/>
     </div>
-    <Nav/>
+    <Nav class='footer'/>
   </div>
 </template>
 
@@ -28,11 +28,14 @@ export default {
 
   display: flex;
   flex-direction: column;
-  max-height: 100vh;
+  min-height: 100vh;
 }
 
 .content {
   flex-grow: 1;
   overflow: auto; /*让超过屏幕的内容可滚动，不影响底部导航栏*/
+}
+.footer{
+  margin-top: auto;
 }
 </style>

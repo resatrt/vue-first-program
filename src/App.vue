@@ -4,7 +4,27 @@
 <!--        /*根据路径显示需要显示的组件，即router里的index.ts文件里的routes*/-->
     </div>
 </template>
+<script lang="js">
+export default {
+  name:'App',
+  data() {
+    return {
+      screenWidth: document.body.clientWidth, // 屏幕尺寸
+    }
+  },
+// 钩子函数
+  mounted () {
 
+    window.onresize = () => {
+      return (() => {
+        window.screenWidth = document.body.clientWidth
+        this.screenWidth = window.screenWidth
+      })()
+    }
+  }
+}
+
+</script>
 <style lang="scss">
 @import "assets/style/reset.scss";
 @import "assets/style/helper.scss";

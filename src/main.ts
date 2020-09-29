@@ -21,20 +21,20 @@ new Vue({
 }).$mount('#app');
 
 //帮助某些显示不出导航栏的浏览器直接滚动到最下面
-window.onload = function () {
-  setTimeout(function () {
-    window.scrollTo(0, 100);
-  }, 0);
-
-  const phoneWidth = document.documentElement.clientWidth
-
-  const phone = document.getElementById('app')
-  if(!phone){
-    return
-  }
-  phone.style.width=`${phoneWidth}px`
-  phone.style.height=`${phoneWidth*1.2}px`
-};
+// window.onload = function () {
+//   setTimeout(function () {
+//     window.scrollTo(0, 100);
+//   }, 0);
+//
+//   const phoneWidth = document.documentElement.clientWidth
+//
+//   const phone = document.getElementById('app')
+//   if(!phone){
+//     return
+//   }
+//   phone.style.width=`${phoneWidth}px`
+//   phone.style.height=`${phoneWidth*1.2}px`
+// };
 
 
 // if (document.documentElement.clientWidth > 500) {
