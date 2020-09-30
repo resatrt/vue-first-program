@@ -1,7 +1,9 @@
 <template>
-  <layout >
+  <layout>
     <div class="wrapper">
-      <h2 class="title"><span>标签列表</span></h2>
+      <header>
+        <h2 class="title"><span>标签列表</span></h2>
+      </header>
       <div class="tags">
         <router-link class="tag" v-for="tag in tags" :key="tag.id"
                      :to="`/labels/edit/${tag.id}`">
@@ -51,11 +53,15 @@ export default class Labels extends mixins(TagHelper) {
 </script>
 
 <style lang="scss" scoped>
+header {
+  background: #767676;
+  padding: 15px 0;
+  > .title{
+    text-align: center;
+    color: white;
+    position: relative;
+  }
 
-.title {
-  text-align: center;
-  margin: 15px auto;
-  position: relative;
 
   > span {
     padding: 8px;
@@ -103,7 +109,7 @@ export default class Labels extends mixins(TagHelper) {
     margin: 15px auto;
     overflow: hidden;
     position: absolute;
-    top: 81.5vh;
+    top: 82.37vh;
     left: 50vw;
     transform: translateX(-50%);
   }
